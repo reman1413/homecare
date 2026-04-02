@@ -6,52 +6,30 @@
 <title>HomeCare Pro — Meena Health</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#080f1e;--bg2:#0d1628;--bg3:#111d35;
-  --card:#0f1b30;--card2:#152240;
-  --border:#1a2d4a;--border2:#243d62;
-  --accent:#00e5b0;--accent2:#00c99a;
-  --blue:#3b8bff;--purple:#9d7dff;--gold:#ffb340;
-  --green:#2dd98a;--red:#ff5c5c;--orange:#ff8c40;
-  --text:#dde8f5;--text2:#7a90b0;--text3:#3d5070;
-  --shadow:0 16px 48px rgba(0,0,0,0.6);
-  --r:12px;--r2:16px;
-}
-[data-theme="light"]{
-  --bg:#eef2f7;--bg2:#ffffff;--bg3:#e4eaf2;
-  --card:#ffffff;--card2:#f5f8fc;
-  --border:#d8e2ef;--border2:#c0cfe0;
-  --text:#0d1f38;--text2:#4a6080;--text3:#96aabe;
-  --shadow:0 4px 20px rgba(0,0,0,0.08);
-}
+:root{--bg:#080f1e;--bg2:#0d1628;--bg3:#111d35;--card:#0f1b30;--card2:#152240;--border:#1a2d4a;--border2:#243d62;--accent:#00e5b0;--accent2:#00c99a;--blue:#3b8bff;--purple:#9d7dff;--gold:#ffb340;--green:#2dd98a;--red:#ff5c5c;--orange:#ff8c40;--text:#dde8f5;--text2:#7a90b0;--text3:#3d5070;--shadow:0 16px 48px rgba(0,0,0,0.6);--r:12px;--r2:16px;}
+[data-theme="light"]{--bg:#eef2f7;--bg2:#ffffff;--bg3:#e4eaf2;--card:#ffffff;--card2:#f5f8fc;--border:#d8e2ef;--border2:#c0cfe0;--text:#0d1f38;--text2:#4a6080;--text3:#96aabe;--shadow:0 4px 20px rgba(0,0,0,0.08);}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow:hidden;font-size:14px;}
-
-/* ── SCREENS ── */
 .scr{position:fixed;inset:0;z-index:100;display:none;background:var(--bg);}
 .scr.on{display:flex;}
-
-/* ── LOGIN ── */
 #scr-nurse{align-items:center;justify-content:center;}
-#scr-nurse::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 30% 20%,rgba(0,229,176,0.06) 0%,transparent 55%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(59,139,255,0.05) 0%,transparent 50%);}
+#scr-nurse::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 30% 20%,rgba(0,229,176,0.06),transparent 55%);}
 #scr-admin{align-items:center;justify-content:center;}
 .lcard{position:relative;z-index:1;background:var(--card);border:1px solid var(--border2);border-radius:24px;padding:44px 40px;width:400px;max-width:94vw;box-shadow:var(--shadow);}
-.lcard-icon{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#003d2a,#00694a);border:1px solid rgba(0,229,176,0.25);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px;}
+.lcard-icon{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#003d2a,#00694a);border:1px solid rgba(0,229,176,0.25);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px;}
 .lcard-title{font-size:22px;font-weight:800;text-align:center;letter-spacing:-0.5px;}
 .lcard-sub{font-size:13px;color:var(--text2);text-align:center;margin-top:4px;margin-bottom:28px;}
 .lbl{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:6px;display:block;}
 .finp{width:100%;padding:13px 16px;border-radius:10px;background:var(--bg3);border:1.5px solid var(--border);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color 0.2s;margin-bottom:12px;}
 .finp:focus{border-color:var(--accent);}
 .finp::placeholder{color:var(--text3);}
-.btn-go{width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#001a12;font-size:15px;font-weight:700;font-family:inherit;border:none;cursor:pointer;letter-spacing:0.2px;transition:opacity 0.2s,transform 0.1s;}
+.btn-go{width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#001a12;font-size:15px;font-weight:700;font-family:inherit;border:none;cursor:pointer;transition:opacity 0.2s,transform 0.1s;}
 .btn-go:hover{opacity:0.9;}
 .btn-go:active{transform:scale(0.98);}
 .err{background:rgba(255,92,92,0.1);border:1px solid rgba(255,92,92,0.25);border-radius:8px;padding:10px 14px;font-size:13px;color:#ff9999;margin-bottom:12px;display:none;}
 .llink{background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit;}
 .llink:hover{color:var(--text2);}
 .lfooter{margin-top:16px;text-align:center;display:flex;flex-direction:column;gap:6px;}
-
-/* ── PORTAL ── */
 #scr-portal{flex-direction:column;}
 .ptop{padding:14px 20px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .pscroll{flex:1;overflow-y:auto;padding:20px;max-width:640px;margin:0 auto;width:100%;}
@@ -63,7 +41,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .srow{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;border-radius:10px;border:1.5px solid var(--border);cursor:pointer;font-size:13px;font-weight:500;margin-bottom:8px;transition:all 0.15s;color:var(--text);background:transparent;width:100%;font-family:inherit;}
 .srow:hover{border-color:var(--border2);}
 .srow.sel{border-color:var(--accent);background:rgba(0,229,176,0.06);}
-.srow.off{border-color:var(--red);background:rgba(255,92,92,0.04);}
+.srow.off{border-color:var(--red);}
 .srow .stk{color:var(--accent);display:none;}
 .srow.sel .stk{display:block;}
 .qbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
@@ -85,35 +63,30 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .ck.ok{border-color:var(--green);background:rgba(45,217,138,0.12);color:var(--green);}
 .ck.bad{border-color:var(--red);background:rgba(255,92,92,0.12);color:var(--red);}
 .photobox{background:rgba(0,229,176,0.04);border:1.5px solid rgba(0,229,176,0.18);border-radius:12px;padding:16px;margin-top:4px;}
-.photoprev{width:100%;height:148px;border-radius:10px;background:var(--bg3);border:1px dashed var(--border2);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px;margin-bottom:10px;overflow:hidden;}
+.photoprev{width:100%;height:148px;border-radius:10px;background:var(--bg3);border:1px dashed var(--border2);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px;margin-bottom:10px;overflow:hidden;position:relative;}
 .photoprev img{width:100%;height:100%;object-fit:cover;border-radius:9px;}
-.submitted-bar{background:rgba(45,217,138,0.07);border:1px solid rgba(45,217,138,0.2);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--green);font-weight:600;margin-bottom:12px;}
-
-/* ── MAIN APP ── */
+.photo-close{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.65);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;z-index:2;}
 #scr-app{flex-direction:column;}
 .topnav{height:52px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;gap:0;flex-shrink:0;}
 .tnlogo{display:flex;align-items:center;gap:9px;margin-right:20px;}
 .tnlogo-icon{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:14px;}
 .tnlogo-txt{font-size:14px;font-weight:800;letter-spacing:-0.3px;}
-.tntabs{display:flex;gap:2px;flex:1;}
-.tntab{padding:6px 13px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all 0.15s;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.tntabs{display:flex;gap:2px;flex:1;overflow-x:auto;}
+.tntab{padding:6px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;color:var(--text2);transition:all 0.15s;white-space:nowrap;}
 .tntab:hover{background:var(--bg3);color:var(--text);}
 .tntab.act{background:rgba(0,229,176,0.1);color:var(--accent);}
-.tnright{display:flex;align-items:center;gap:8px;margin-left:auto;}
+.tnright{display:flex;align-items:center;gap:8px;margin-right:auto;flex-shrink:0;}
 .tnuser{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:8px;background:var(--bg3);}
 .tnav{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;}
-.tnsync{font-size:11px;display:flex;align-items:center;gap:4px;}
 .btnref{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;background:rgba(0,229,176,0.08);border:1px solid rgba(0,229,176,0.18);color:var(--accent);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;}
 .btnref:hover{background:rgba(0,229,176,0.16);}
 .btnref.spin .ri{animation:spin 0.7s linear infinite;}
 .ri{display:inline-block;}
 @keyframes spin{to{transform:rotate(360deg)}}
 .thbtn{padding:5px 9px;border-radius:7px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-family:inherit;font-size:12px;cursor:pointer;}
-
-/* BODY */
 .appbody{flex:1;overflow:hidden;display:flex;}
 .mainwrap{flex:1;overflow-y:auto;padding:20px;}
-.rpanel{width:214px;flex-shrink:0;background:var(--card);border-left:1px solid var(--border);padding:14px;overflow-y:auto;}
+.rpanel{width:214px;flex-shrink:0;background:var(--card);border-right:1px solid var(--border);padding:14px;overflow-y:auto;}
 .rp-ttl{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;margin-top:14px;}
 .rp-ttl:first-child{margin-top:0;}
 .rpitem{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;transition:background 0.12s;color:var(--text2);}
@@ -126,8 +99,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .rpst.act{background:rgba(0,229,176,0.09);color:var(--accent);}
 .rpst::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--text3);margin-left:6px;flex-shrink:0;}
 .rpst.act::before{background:var(--accent);}
-
-/* STATS */
 .statsrow{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;flex:1;min-width:100px;position:relative;overflow:hidden;}
 .stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
@@ -136,35 +107,28 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .stat.c-g::before{background:linear-gradient(90deg,var(--green),#1ab870);}
 .stat.c-r::before{background:linear-gradient(90deg,var(--red),var(--orange));}
 .stat.c-o::before{background:linear-gradient(90deg,var(--gold),var(--orange));}
-.stat-v{font-size:26px;font-weight:800;line-height:1;letter-spacing:-0.5px;}
+.stat.c-p::before{background:linear-gradient(90deg,var(--purple),var(--blue));}
+.stat-v{font-size:24px;font-weight:800;line-height:1;letter-spacing:-0.5px;}
 .stat-l{font-size:11px;color:var(--text2);margin-top:5px;}
-
-/* SECTION */
+.stat-sub{font-size:10px;color:var(--text3);margin-top:2px;}
 .sec{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:14px;}
 .sechdr{padding:13px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .sect{font-size:13px;font-weight:700;}
 .secs{font-size:11px;color:var(--text2);}
 .secb{padding:16px;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-
-/* PAGE */
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
 .pg{display:none;}.pg.on{display:block;}
-
-/* PGHDR */
 .pghdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .pgtitle{font-size:16px;font-weight:800;letter-spacing:-0.3px;}
 .pgcount{font-size:12px;color:var(--text3);font-weight:400;margin-right:6px;}
 .btnadd{padding:7px 14px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#001a12;font-family:inherit;font-size:12px;font-weight:700;border:none;cursor:pointer;}
-
-/* SEARCH */
 .fibar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
 .fi{padding:8px 13px;border-radius:9px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;outline:none;transition:border-color 0.2s;}
 .fi:focus{border-color:var(--border2);}
 .fi::placeholder{color:var(--text3);}
 .fi option{background:var(--bg2);}
 .fi-g{flex:1;min-width:160px;}
-
-/* STAFF CARDS */
 .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px;}
 .scard{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:16px;transition:border-color 0.15s,transform 0.15s;}
 .scard:hover{border-color:var(--border2);transform:translateY(-1px);}
@@ -189,16 +153,11 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .sa{padding:7px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;text-align:center;}
 .sa:hover{border-color:var(--border2);color:var(--text);}
 .sa.p{background:rgba(0,229,176,0.07);border-color:rgba(0,229,176,0.18);color:var(--accent);}
-.sa.p:hover{background:rgba(0,229,176,0.14);}
-
-/* STATUS */
 .stbadge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;}
 .st-pend{background:rgba(122,144,176,0.09);color:var(--text2);border:1px solid rgba(122,144,176,0.12);}
 .st-sub{background:rgba(255,179,64,0.09);color:var(--gold);border:1px solid rgba(255,179,64,0.12);}
 .st-ok{background:rgba(45,217,138,0.09);color:var(--green);border:1px solid rgba(45,217,138,0.12);}
 .st-iss{background:rgba(255,92,92,0.09);color:var(--red);border:1px solid rgba(255,92,92,0.12);}
-
-/* TABLE */
 .tblw{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
 th{text-align:left;padding:9px 14px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);}
@@ -206,56 +165,57 @@ td{padding:11px 14px;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.0
 [data-theme="light"] td{border-bottom:1px solid rgba(0,0,0,0.04);}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:rgba(255,255,255,0.02);}
-[data-theme="light"] tr:hover td{background:rgba(0,0,0,0.015);}
-
-/* PROGRESS */
 .pbar{height:5px;border-radius:3px;background:var(--bg3);overflow:hidden;}
 .pf{height:100%;border-radius:3px;transition:width 0.6s ease;}
 .pf-t{background:linear-gradient(90deg,var(--accent),var(--accent2));}
 .pf-g{background:linear-gradient(90deg,var(--gold),var(--orange));}
 .pf-r{background:linear-gradient(90deg,var(--red),var(--orange));}
-
-/* CHAT */
-.chatwrap{display:flex;height:calc(100vh - 100px);overflow:hidden;background:var(--card);border:1px solid var(--border);border-radius:var(--r2);}
-.chatside{width:200px;border-right:1px solid var(--border);overflow-y:auto;flex-shrink:0;}
-.chatroom{padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.12s;}
-.chatroom:hover{background:var(--bg3);}
-.chatroom.act{background:rgba(0,229,176,0.06);border-right:2px solid var(--accent);}
-.chatroom-n{font-size:13px;font-weight:600;}
-.chatmain{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-.chathdr{padding:12px 16px;border-bottom:1px solid var(--border);flex-shrink:0;}
-.chatmsgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}
-.chatinpr{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;}
-.chatinp{flex:1;padding:10px 14px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;outline:none;}
-.chatinp:focus{border-color:var(--accent);}
-.chatsend{padding:10px 16px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#001a12;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;}
-.bubble{max-width:65%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;}
-.bubble.me{background:linear-gradient(135deg,var(--accent),var(--accent2));align-self:flex-start;border-radius:14px 14px 0 14px;color:#001a12;}
-.bubble.them{background:var(--card2);border:1px solid var(--border);align-self:flex-end;border-radius:14px 14px 14px 0;}
-.bmeta{font-size:10px;margin-top:4px;opacity:0.55;}
-.bsender{font-size:10px;font-weight:700;margin-bottom:3px;opacity:0.65;}
-
-/* MODAL */
+.pf-b{background:linear-gradient(90deg,var(--blue),var(--purple));}
 .ovl{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;}
 .ovl.on{display:flex;}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:24px;width:440px;max-width:95vw;max-height:85vh;overflow-y:auto;position:relative;}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:24px;width:500px;max-width:95vw;max-height:85vh;overflow-y:auto;position:relative;}
 .mtitle{font-size:15px;font-weight:700;margin-bottom:16px;}
 .mclose{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:7px;background:rgba(255,92,92,0.12);border:none;color:#ff9999;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .macts{display:flex;gap:8px;margin-top:16px;}
 .btnsave{padding:10px 20px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#001a12;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;}
 .btncancel{padding:10px 16px;border-radius:9px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-family:inherit;font-size:13px;cursor:pointer;}
 .fg{margin-bottom:12px;}
-
+/* DAILY VISITS */
+.dv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.dv-input-group{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+.dv-label{font-size:11px;font-weight:600;color:var(--text2);margin-bottom:6px;display:block;}
+.dv-input{width:100%;padding:8px 10px;border-radius:8px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:18px;font-weight:700;outline:none;text-align:center;}
+.dv-input:focus{border-color:var(--accent);}
+/* VISIT CARDS */
+.visit-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center;}
+.visit-card-val{font-size:32px;font-weight:800;margin-bottom:4px;}
+.visit-card-lbl{font-size:12px;color:var(--text2);}
+.visit-card-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+/* MONTHLY CENSUS */
+.census-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px;text-align:center;position:relative;overflow:hidden;}
+.census-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.census-card.green::before{background:linear-gradient(90deg,var(--green),#1ab870);}
+.census-card.red::before{background:linear-gradient(90deg,var(--red),var(--orange));}
+.census-card.blue::before{background:linear-gradient(90deg,var(--blue),var(--purple));}
+.census-card.gold::before{background:linear-gradient(90deg,var(--gold),var(--orange));}
+.census-val{font-size:40px;font-weight:800;line-height:1;}
+.census-lbl{font-size:13px;color:var(--text2);margin-top:6px;}
+/* PERF */
+.perf-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;}
+.perf-rank{font-size:22px;width:36px;text-align:center;flex-shrink:0;}
+.perf-info{flex:1;}
+.perf-name{font-size:13px;font-weight:700;}
+.perf-team{font-size:11px;color:var(--text3);}
+.perf-bars{display:flex;flex-direction:column;gap:5px;width:180px;flex-shrink:0;}
+.perf-bar-row{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text3);}
+.perf-bar-lbl{width:60px;text-align:right;}
+.perf-bar-wrap{flex:1;}
+.perf-score{font-size:20px;font-weight:800;width:44px;text-align:center;flex-shrink:0;}
 /* AUDIT */
 .audsum{display:flex;gap:14px;padding:12px 14px;background:var(--bg3);border-radius:10px;margin-bottom:14px;flex-wrap:wrap;}
-.asv{font-size:18px;font-weight:800;}
-.asl{font-size:11px;color:var(--text3);}
-
 /* PASS */
 .passrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
 .passval{font-family:monospace;font-size:13px;flex:1;background:var(--bg3);padding:6px 12px;border-radius:8px;color:var(--text);}
-
-/* TOAST */
 .twrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;display:flex;flex-direction:column;gap:6px;align-items:center;}
 .toast{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;animation:tin 0.3s ease,tout 0.3s 2.7s forwards;white-space:nowrap;}
 .tok{background:rgba(45,217,138,0.95);color:#001a12;}
@@ -266,8 +226,7 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 .loading{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--text2);font-size:13px;gap:10px;}
 .spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(0,229,176,0.15);border-top-color:var(--accent);animation:spin 0.8s linear infinite;flex-shrink:0;}
 .empty{text-align:center;padding:40px;color:var(--text3);font-size:13px;}
-
-@media(max-width:900px){.rpanel{display:none;}.sgrid{grid-template-columns:1fr;}.g2{grid-template-columns:1fr;}.statsrow{flex-wrap:wrap;}.stat{min-width:calc(50% - 5px);}}
+@media(max-width:900px){.rpanel{display:none;}.sgrid{grid-template-columns:1fr;}.g2,.g3{grid-template-columns:1fr;}.statsrow{flex-wrap:wrap;}.stat{min-width:calc(50% - 5px);}}
 </style>
 </head>
 <body>
@@ -282,9 +241,7 @@ tr:hover td{background:rgba(255,255,255,0.02);}
     <label class="lbl">Badge Number</label>
     <input type="text" inputmode="numeric" class="finp" id="badge-inp" placeholder="e.g. 1510" onkeydown="if(event.key==='Enter')nurseLogin()">
     <button class="btn-go" onclick="nurseLogin()">Continue →</button>
-    <div class="lfooter">
-      <button class="llink" onclick="showScr('scr-admin')">Admin Login</button>
-    </div>
+    <div class="lfooter"><button class="llink" onclick="showScr('scr-admin')">Admin Login</button></div>
   </div>
 </div>
 
@@ -329,20 +286,19 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 <div class="scr" id="scr-app">
   <div style="display:flex;flex-direction:column;width:100%;height:100vh;overflow:hidden;">
   <div class="topnav">
-    <div class="tnlogo">
-      <div class="tnlogo-icon">🏥</div>
-      <div class="tnlogo-txt">HomeCare Pro</div>
-    </div>
+    <div class="tnlogo"><div class="tnlogo-icon">🏥</div><div class="tnlogo-txt">HomeCare Pro</div></div>
     <div class="tntabs">
       <div class="tntab act" onclick="goPage('dashboard')" id="tn-dashboard">📊 Dashboard</div>
       <div class="tntab" onclick="goPage('staff')" id="tn-staff">👥 Staff</div>
       <div class="tntab" onclick="goPage('readiness')" id="tn-readiness">✅ Readiness</div>
+      <div class="tntab" onclick="goPage('visits')" id="tn-visits">📈 Daily Visits</div>
+      <div class="tntab" onclick="goPage('census')" id="tn-census">🏥 Census</div>
       <div class="tntab" onclick="goPage('audit')" id="tn-audit">📋 Audit</div>
       <div class="tntab" onclick="goPage('performance')" id="tn-performance">🏆 Performance</div>
       <div class="tntab" onclick="goPage('passwords')" id="tn-passwords" style="display:none">🔑 Passwords</div>
     </div>
     <div class="tnright">
-      <span class="tnsync" id="sync-st" style="color:var(--green)">● Synced</span>
+      <span id="sync-st" style="font-size:11px;color:var(--green)">● Synced</span>
       <span id="clk" style="font-size:11px;color:var(--text3)"></span>
       <button class="btnref" onclick="doRefresh()" id="ref-btn"><span class="ri">🔄</span> Refresh</button>
       <button class="thbtn" onclick="toggleTheme()" id="thbtn">☀️</button>
@@ -358,14 +314,19 @@ tr:hover td{background:rgba(255,255,255,0.02);}
   </div>
 
   <div class="appbody">
+    <div class="rpanel" id="rpanel"></div>
     <div class="mainwrap">
 
       <!-- DASHBOARD -->
       <div class="pg on" id="pg-dashboard">
-        <div class="statsrow" id="dash-stats"><div class="loading"><div class="spinner"></div> Loading...</div></div>
-        <div class="g2">
+        <div class="statsrow" id="dash-stats"><div class="loading"><div class="spinner"></div></div></div>
+        <div class="g2" style="margin-bottom:14px">
           <div class="sec"><div class="sechdr"><div class="sect">Readiness by Team</div><div class="secs" id="d-date"></div></div><div class="secb" id="d-teams"></div></div>
           <div class="sec"><div class="sechdr"><div class="sect">Latest Submissions</div><div class="secs">Today</div></div><div class="secb" id="d-latest"></div></div>
+        </div>
+        <div class="g2">
+          <div class="sec"><div class="sechdr"><div class="sect">📈 Today's Visits</div><div class="secs" id="d-visits-date"></div></div><div class="secb" id="d-visits"></div></div>
+          <div class="sec"><div class="sechdr"><div class="sect">🏥 Active Patients</div><div class="secs">This month</div></div><div class="secb" id="d-census"></div></div>
         </div>
       </div>
 
@@ -375,21 +336,94 @@ tr:hover td{background:rgba(255,255,255,0.02);}
           <div class="pgtitle">Staff <span class="pgcount" id="staff-cnt"></span></div>
           <button class="btnadd" onclick="openAddStaff()">+ Add Nurse</button>
         </div>
-        <div class="fibar">
-          <input type="text" class="fi fi-g" placeholder="🔍 Search name or badge..." id="staff-srch" oninput="renderStaff()">
-        </div>
-        <div id="staff-wrap"><div class="loading"><div class="spinner"></div> Loading...</div></div>
+        <div class="fibar"><input type="text" class="fi fi-g" placeholder="🔍 Search name or badge..." id="staff-srch" oninput="renderStaff()"></div>
+        <div id="staff-wrap"><div class="loading"><div class="spinner"></div></div></div>
       </div>
 
       <!-- READINESS -->
       <div class="pg" id="pg-readiness">
-        <div class="pghdr"><div class="pgtitle">Daily Readiness <span style="font-size:12px;color:var(--text3);font-weight:400" id="rd-date"></span></div><button class="btnadd" onclick="exportReadinessExcel()">⬇️ Export Excel</button></div>
+        <div class="pghdr">
+          <div class="pgtitle">Daily Readiness <span style="font-size:12px;color:var(--text3);font-weight:400" id="rd-date"></span></div>
+          <button class="btnadd" onclick="exportChecklist()">⬇️ Daily Checklist</button>
+        </div>
         <div class="tblw" id="rd-table"><div class="loading"><div class="spinner"></div></div></div>
+      </div>
+
+      <!-- DAILY VISITS -->
+      <div class="pg" id="pg-visits">
+        <div class="pghdr">
+          <div class="pgtitle">Daily Visits Entry</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="date" class="fi" id="v-date" style="width:150px">
+            <button class="btnadd" onclick="saveVisits()">💾 Save</button>
+            <button class="btnadd" style="background:linear-gradient(135deg,var(--blue),var(--purple))" onclick="exportVisitsExcel()">⬇️ Export</button>
+          </div>
+        </div>
+        <!-- Summary input -->
+        <div class="sec" style="margin-bottom:14px">
+          <div class="sechdr"><div class="sect">📊 Daily Summary</div></div>
+          <div class="secb">
+            <div class="dv-grid">
+              <div class="dv-input-group"><label class="dv-label">Total Visits</label><input type="number" class="dv-input" id="v-total" placeholder="0" min="0"></div>
+              <div class="dv-input-group"><label class="dv-label">🏥 Nursing (IV, IM, SQ, NEB)</label><input type="number" class="dv-input" id="v-ns-ivim" placeholder="0" min="0"></div>
+              <div class="dv-input-group"><label class="dv-label">🩹 Nursing (Dressing)</label><input type="number" class="dv-input" id="v-ns-dress" placeholder="0" min="0"></div>
+              <div class="dv-input-group"><label class="dv-label">💉 Vaccine Visit</label><input type="number" class="dv-input" id="v-vaccine" placeholder="0" min="0"></div>
+              <div class="dv-input-group"><label class="dv-label">🩸 Phlebotomy Visit</label><input type="number" class="dv-input" id="v-phlebo" placeholder="0" min="0"></div>
+              <div class="dv-input-group"><label class="dv-label">📞 Consultation Visit</label><input type="number" class="dv-input" id="v-consult" placeholder="0" min="0"></div>
+              <div class="dv-input-group"><label class="dv-label">🚫 Total Cancelled</label><input type="number" class="dv-input" id="v-cancel-total" placeholder="0" min="0" style="color:var(--red)"></div>
+              <div class="dv-input-group"><label class="dv-label">🩸 Cancelled Blood</label><input type="number" class="dv-input" id="v-cancel-blood" placeholder="0" min="0" style="color:var(--red)"></div>
+              <div class="dv-input-group"><label class="dv-label">❌ Cancelled Other</label><input type="number" class="dv-input" id="v-cancel-other" placeholder="0" min="0" style="color:var(--red)"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Nurse details -->
+        <div class="sec">
+          <div class="sechdr">
+            <div class="sect">👩‍⚕️ Nurse Visit Details</div>
+            <button class="btnadd" style="font-size:11px;padding:5px 10px" onclick="addNurseVisitRow()">+ Add Row</button>
+          </div>
+          <div class="secb">
+            <div class="tblw">
+              <table id="nurse-visits-table">
+                <thead><tr><th>Nurse Name</th><th>Badge</th><th>Service Type</th><th>Total Visits</th><th>Cancelled</th><th></th></tr></thead>
+                <tbody id="nurse-visits-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- History -->
+        <div class="sec" style="margin-top:14px">
+          <div class="sechdr"><div class="sect">📅 Visit History</div></div>
+          <div class="tblw" id="visits-history"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+      </div>
+
+      <!-- CENSUS -->
+      <div class="pg" id="pg-census">
+        <div class="pghdr">
+          <div class="pgtitle">Monthly Census</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select class="fi" id="census-month" onchange="renderCensus()">
+              <option value="2026-01">January 2026</option>
+              <option value="2026-02">February 2026</option>
+              <option value="2026-03">March 2026</option>
+              <option value="2026-04" selected>April 2026</option>
+              <option value="2026-05">May 2026</option>
+              <option value="2026-06">June 2026</option>
+            </select>
+            <button class="btnadd" onclick="openAddCensus()">+ Add Entry</button>
+          </div>
+        </div>
+        <div class="g3" style="margin-bottom:18px" id="census-stats"></div>
+        <div class="sec"><div class="sechdr"><div class="sect">Monthly Breakdown</div></div><div class="tblw" id="census-table"></div></div>
       </div>
 
       <!-- AUDIT -->
       <div class="pg" id="pg-audit">
-        <div class="pghdr"><div class="pgtitle">Documentation Audit</div><button class="btnsave" onclick="saveAudit()">💾 Save Audit</button></div>
+        <div class="pghdr">
+          <div class="pgtitle">Documentation Audit</div>
+          <button class="btnsave" onclick="saveAudit()">💾 Save Audit</button>
+        </div>
         <div class="fibar">
           <input type="date" class="fi" id="aud-date" style="width:150px">
           <input type="text" class="fi" placeholder="Auditor name" id="aud-auditor">
@@ -402,15 +436,28 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 
       <!-- PERFORMANCE -->
       <div class="pg" id="pg-performance">
-        <div class="pghdr"><div class="pgtitle">Performance Rankings</div></div>
-        <div id="perf-wrap"><div class="loading"><div class="spinner"></div></div></div>
+        <div class="pghdr"><div class="pgtitle">Performance</div></div>
+        <div class="g2">
+          <div>
+            <div class="sec" style="margin-bottom:14px">
+              <div class="sechdr"><div class="sect">✅ Readiness & Attendance</div><div class="secs">Today</div></div>
+              <div class="secb" id="perf-readiness"></div>
+            </div>
+          </div>
+          <div>
+            <div class="sec">
+              <div class="sechdr"><div class="sect">📋 Documentation</div><div class="secs">From Audit</div></div>
+              <div class="secb" id="perf-doc"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- PASSWORDS -->
       <div class="pg" id="pg-passwords">
         <div class="pghdr"><div class="pgtitle">🔑 Password Management</div></div>
         <div class="sec"><div class="secb">
-          <div style="background:rgba(255,179,64,0.07);border:1px solid rgba(255,179,64,0.18);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--gold);margin-bottom:18px">⚠️ Superadmin only — keep confidential</div>
+          <div style="background:rgba(255,179,64,0.07);border:1px solid rgba(255,179,64,0.18);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--gold);margin-bottom:18px">⚠️ Superadmin only</div>
           <div id="pass-list"></div>
           <div style="margin-top:20px"><div style="font-size:13px;font-weight:700;margin-bottom:12px">Change Password</div>
             <div style="display:grid;gap:10px;max-width:380px">
@@ -422,11 +469,8 @@ tr:hover td{background:rgba(255,255,255,0.02);}
         </div></div>
       </div>
 
-    </div><!-- /mainwrap -->
-
-    <!-- RIGHT PANEL -->
-    <div class="rpanel" id="rpanel"></div>
-  </div><!-- /appbody -->
+    </div>
+  </div>
   </div>
 </div>
 
@@ -460,7 +504,7 @@ tr:hover td{background:rgba(255,255,255,0.02);}
   </div>
 </div>
 
-<!-- CHECKLIST MODAL -->
+<!-- CHECK MODAL -->
 <div class="ovl" id="ovl-check">
   <div class="modal">
     <button class="mclose" onclick="closeOvl('ovl-check')">✕</button>
@@ -469,46 +513,56 @@ tr:hover td{background:rgba(255,255,255,0.02);}
   </div>
 </div>
 
+<!-- CENSUS MODAL -->
+<div class="ovl" id="ovl-census">
+  <div class="modal">
+    <button class="mclose" onclick="closeOvl('ovl-census')">✕</button>
+    <div class="mtitle">Add Census Entry</div>
+    <div style="display:grid;gap:10px">
+      <div class="fg"><label class="lbl">Month</label><input type="month" class="finp" id="cm-month"></div>
+      <div class="fg"><label class="lbl">New Admissions</label><input type="number" class="finp" id="cm-admit" placeholder="0" min="0"></div>
+      <div class="fg"><label class="lbl">Discharges</label><input type="number" class="finp" id="cm-discharge" placeholder="0" min="0"></div>
+      <div class="fg"><label class="lbl">Notes</label><input type="text" class="finp" id="cm-notes" placeholder="Optional notes"></div>
+    </div>
+    <div class="macts"><button class="btnsave" onclick="saveCensus()">Save</button><button class="btncancel" onclick="closeOvl('ovl-census')">Cancel</button></div>
+  </div>
+</div>
+
 <div class="twrap" id="twrap"></div>
 
 <script>
-// ═══ CONFIG ═══
 const SB='https://phdzmtfibthsbuhnsgcf.supabase.co';
 const SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBoZHptdGZpYnRoc2J1aG5zZ2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2Mzc1NjcsImV4cCI6MjA5MDIxMzU2N30.i-zjzqBPoBY_ZOHFy6EoBTj1JfdFCMKDkbNrlz9_XbM';
-const SUPER_B='101466', SUPER_P='homecare2015', DEF_P='homecare2024';
-
+const SUPER_B='101466',SUPER_P='homecare2015',DEF_P='homecare2024';
 const TEAMS={admin:'Admin Team',consultation:'Consultation Team',nursing:'Nursing Services',phlebotomy:'Phlebotomy Team',vaccine:'Vaccine Team',dialysis:'Dialysis'};
 const TI={admin:'🖥️',consultation:'📞',nursing:'🏥',phlebotomy:'🩸',vaccine:'💉',dialysis:'🫀'};
 const TBG={admin:'#7c3aed',consultation:'#ea580c',nursing:'#2563eb',phlebotomy:'#dc2626',vaccine:'#00d4aa',dialysis:'#d97706'};
 const TCL={admin:'tp',consultation:'to',nursing:'tb',phlebotomy:'tr',vaccine:'tt',dialysis:'tgld'};
-
 const SHIFTS={
-  admin:[{id:'adm_m',l:'Morning  8 AM – 4 PM'},{id:'adm_a',l:'Afternoon  4 PM – 12 AM'},{id:'adm_n',l:'Night  12 AM – 8 AM'},{id:'off',l:'Off Today 🚫'}],
-  consultation:[{id:'con_a',l:'Shift A  8:30 AM – 6 PM'},{id:'con_b',l:'Shift B  12:30 PM – 10 PM'},{id:'off',l:'Off Today 🚫'}],
-  nursing:[{id:'ns_a',l:'Shift A  6 AM – 2 PM'},{id:'ns_b',l:'Shift B  2 PM – 10 PM'},{id:'ns_c',l:'Shift C  10 PM – 6 AM'},{id:'off',l:'Off Today 🚫'}],
-  phlebotomy:[{id:'ph_a',l:'Shift A  6 AM – 1 PM'},{id:'ph_b',l:'Shift B  2 PM – 10 PM'},{id:'off',l:'Off Today 🚫'}],
-  vaccine:[{id:'vax_a',l:'Shift A  10 AM – 10 PM'},{id:'off',l:'Off Today 🚫'}],
-  dialysis:[{id:'dia_a',l:'Shift A  7 AM – 3 PM'},{id:'dia_b',l:'Shift B  3 PM – 11 PM'},{id:'off',l:'Off Today 🚫'}],
+  admin:[{id:'adm_m',l:'Morning 8 AM – 4 PM'},{id:'adm_a',l:'Afternoon 4 PM – 12 AM'},{id:'adm_n',l:'Night 12 AM – 8 AM'},{id:'off',l:'Off Today 🚫'}],
+  consultation:[{id:'con_a',l:'Shift A 8:30 AM – 6 PM'},{id:'con_b',l:'Shift B 12:30 PM – 10 PM'},{id:'off',l:'Off Today 🚫'}],
+  nursing:[{id:'ns_a',l:'Shift A 6 AM – 2 PM'},{id:'ns_b',l:'Shift B 2 PM – 10 PM'},{id:'ns_c',l:'Shift C 10 PM – 6 AM'},{id:'off',l:'Off Today 🚫'}],
+  phlebotomy:[{id:'ph_a',l:'Shift A 6 AM – 1 PM'},{id:'ph_b',l:'Shift B 2 PM – 10 PM'},{id:'off',l:'Off Today 🚫'}],
+  vaccine:[{id:'vax_a',l:'Shift A 10 AM – 10 PM'},{id:'off',l:'Off Today 🚫'}],
+  dialysis:[{id:'dia_a',l:'Shift A 7 AM – 3 PM'},{id:'dia_b',l:'Shift B 3 PM – 11 PM'},{id:'off',l:'Off Today 🚫'}],
 };
-
 const CA=[{k:'uniform',i:'👗',n:'Uniform complete & neat',d:'Full uniform properly worn'},{k:'badge_id',i:'🪪',n:'Badge & institutional ID',d:'Visible and properly displayed'},{k:'shoes',i:'👟',n:'Appropriate & clean shoes',d:'Medical-grade footwear'},{k:'hair',i:'💇',n:'Hair neat & professional',d:'Tied back if long'}];
 const CB=[{k:'bag_clean',i:'👜',n:'Bag clean & organized',d:'Home care bag tidy'},{k:'gloves',i:'🧤',n:'Sufficient medical gloves',d:'Adequate supply'},{k:'masks',i:'😷',n:'Sufficient masks',d:'Adequate supply'},{k:'bp_device',i:'🩺',n:'Blood pressure device',d:'Working and calibrated'},{k:'pulse_ox',i:'🩸',n:'Pulse oximeter',d:'Functional'},{k:'scale_thermo',i:'⚖️',n:'Scale / thermometer',d:'Present and working'},{k:'paper_forms',i:'📋',n:'Paper forms complete',d:'All required forms present'},{k:'sanitizer',i:'🧴',n:'Hand sanitizer',d:'Sufficient quantity'},{k:'emerg_bag',i:'💊',n:'Emergency medication bag',d:'Stocked and ready'}];
 const CT=[{k:'tablet',i:'💻',n:'Tablet present & working',d:'iPad/tablet functional'},{k:'battery',i:'🔋',n:'Battery charged +80%',d:'Device charged adequately'},{k:'app_open',i:'📱',n:'HomeCare app open',d:'App launched and working'},{k:'internet',i:'📶',n:'Internet connection working',d:'Connected to network'}];
-
 function getC(t){return t==='admin'?{a:CA,b:[],t:[]}:{a:CA,b:CB,t:CT};}
 function allC(t){const c=getC(t);return[...c.a,...c.b,...c.t];}
 
-// STATE
 let nurses=[],curAdmin=null,curNurse=null;
 let shiftEid=null,staffEid=null,shiftST=null,shiftSel=null;
-let chatRoom='general',chatPoll=null;
 let pTab='a',pShift=null,pTeam=null,pChecks={},pPhoto=null;
 let isDark=true,audData={},adPasses={};
 let sfTeam='',sfStatus='';
+let nurseVisitRows=[];
+let censusData=[];
+let visitsHistory=[];
 
-// SUPABASE
-async function sbq(method,table,q='',body=null){
-  const r=await fetch(SB+'/rest/v1/'+table+q,{method,headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=representation'},...(body?{body:JSON.stringify(body)}:{})});
+async function sbq(m,t,q='',b=null){
+  const r=await fetch(SB+'/rest/v1/'+t+q,{method:m,headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=representation'},...(b?{body:JSON.stringify(b)}:{})});
   if(r.status===204)return null;
   const d=await r.json();if(!r.ok)throw new Error(d.message||'DB Error');return d;
 }
@@ -521,10 +575,8 @@ async function upPhoto(file,badge){
   return r.ok?SB+'/storage/v1/object/public/photos/'+path:null;
 }
 
-// SCREENS
 function showScr(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');}
 
-// NURSE LOGIN
 async function nurseLogin(){
   const badge=document.getElementById('badge-inp').value.trim();
   const err=document.getElementById('nerr');err.style.display='none';
@@ -536,7 +588,6 @@ async function nurseLogin(){
   }catch(e){err.textContent=e.message;err.style.display='block';}
 }
 
-// ADMIN LOGIN
 async function adminLogin(){
   const badge=document.getElementById('a-badge').value.trim();
   const pass=document.getElementById('a-pass').value;
@@ -556,14 +607,18 @@ async function adminLogin(){
     showScr('scr-app');startApp();
   }catch(e){err.textContent=e.message;err.style.display='block';}
 }
-function doLogout(){curAdmin=null;if(chatPoll){clearInterval(chatPoll);chatPoll=null;}showScr('scr-nurse');}
+function doLogout(){curAdmin=null;showScr('scr-nurse');}
 
-// APP
 async function startApp(){
   tick();setInterval(tick,30000);
   await loadNurses();
   renderDash();
   document.getElementById('aud-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('v-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('cm-month').value=new Date().toISOString().slice(0,7);
+  // Set census month selector
+  const now=new Date();
+  document.getElementById('census-month').value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
 }
 function tick(){document.getElementById('clk').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});}
 
@@ -573,15 +628,15 @@ async function loadNurses(){
     document.getElementById('sync-st').textContent='● Synced';document.getElementById('sync-st').style.color='var(--green)';
   }catch(e){document.getElementById('sync-st').textContent='⚠ Error';document.getElementById('sync-st').style.color='var(--red)';toast('Load error','err');}
 }
+
 async function doRefresh(){
   const b=document.getElementById('ref-btn');b.classList.add('spin');
   await loadNurses();
   const p=document.querySelector('.pg.on')?.id?.replace('pg-','');
-  if(p==='dashboard')renderDash();else if(p==='staff')renderStaff();else if(p==='readiness')renderReadiness();else if(p==='audit')renderAudit();else if(p==='performance')renderPerf();
+  if(p==='dashboard')renderDash();else if(p==='staff')renderStaff();else if(p==='readiness')renderReadiness();else if(p==='visits'){loadVisitsHistory();}else if(p==='census')renderCensus();else if(p==='audit')renderAudit();else if(p==='performance')renderPerformance();
   setTimeout(()=>b.classList.remove('spin'),700);toast('Refreshed ✓','ok');
 }
 
-// NAV
 function goPage(name){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tntab').forEach(t=>t.classList.remove('act'));
@@ -589,23 +644,22 @@ function goPage(name){
   document.getElementById('tn-'+name)?.classList.add('act');
   if(name==='staff'){renderStaff();renderRP('staff');}
   else if(name==='readiness')renderReadiness();
+  else if(name==='visits'){loadVisitsHistory();initNurseVisitRows();}
+  else if(name==='census')renderCensus();
   else if(name==='audit')renderAudit();
-  else if(name==='performance')renderPerf();
+  else if(name==='performance')renderPerformance();
   else if(name==='passwords')renderPasses();
-  else if(name==='dashboard')renderRP('dashboard');
+  else{renderRP('none');}
 }
 
-// RIGHT PANEL
 function renderRP(ctx){
   if(ctx==='staff'){
-    const cnt=(t)=>nurses.filter(n=>n.home_team===t).length;
-    const today=new Date().toISOString().split('T')[0];
     document.getElementById('rpanel').innerHTML=`
-      <div class="rp-ttl">Filter by Home Team</div>
-      <div class="rpitem ${sfTeam===''?'act':''}" onclick="setSFT('')"><span>🔵 All Staff</span><span class="rpcnt">${nurses.length}</span></div>
-      ${Object.entries(TEAMS).map(([k,v])=>`<div class="rpitem ${sfTeam===k?'act':''}" onclick="setSFT('${k}')"><span>${TI[k]} ${v}</span><span class="rpcnt">${cnt(k)}</span></div>`).join('')}
+      <div class="rp-ttl">Filter by Team</div>
+      <div class="rpitem ${sfTeam===''?'act':''}" onclick="setSFT('')"><span>🔵 All</span><span class="rpcnt">${nurses.length}</span></div>
+      ${Object.entries(TEAMS).map(([k,v])=>`<div class="rpitem ${sfTeam===k?'act':''}" onclick="setSFT('${k}')"><span>${TI[k]} ${v}</span><span class="rpcnt">${nurses.filter(n=>n.home_team===k).length}</span></div>`).join('')}
       <div class="rp-ttl">Status</div>
-      ${[['','All'],['complete','Complete ✓'],['submitted','Submitted'],['pending','Pending']].map(([k,l])=>`<div class="rpst ${sfStatus===k?'act':''}" onclick="setSFS('${k}')">${l}</div>`).join('')}`;
+      ${[['','All'],['complete','Complete'],['submitted','Submitted'],['pending','Pending']].map(([k,l])=>`<div class="rpst ${sfStatus===k?'act':''}" onclick="setSFS('${k}')">${l}</div>`).join('')}`;
   } else {
     document.getElementById('rpanel').innerHTML='';
   }
@@ -614,32 +668,70 @@ function setSFT(t){sfTeam=t;renderStaff();renderRP('staff');}
 function setSFS(s){sfStatus=s;renderStaff();renderRP('staff');}
 
 // DASHBOARD
-function renderDash(){
+async function renderDash(){
   const today=new Date().toISOString().split('T')[0];
   document.getElementById('d-date').textContent=today;
   const sub=nurses.filter(n=>n.daily_date===today&&n.self_submitted);
   const rev=nurses.filter(n=>n.daily_date===today&&n.charge_reviewed);
   const iss=nurses.filter(n=>n.daily_date===today&&n.self_submitted&&Object.values(n.self_checks||{}).includes('fail'));
   const nosh=nurses.filter(n=>!n.daily_shift);
-  const noT=nurses.filter(n=>!n.daily_team);
   document.getElementById('dash-stats').innerHTML=`
     <div class="stat c-b"><div class="stat-v">${nosh.length}</div><div class="stat-l">No Shift</div></div>
-    <div class="stat c-o"><div class="stat-v">${noT.length}</div><div class="stat-l">No Team</div></div>
     <div class="stat c-o"><div class="stat-v" style="color:var(--gold)">${nurses.length-sub.length}</div><div class="stat-l">Pending</div></div>
     <div class="stat c-r"><div class="stat-v" style="color:var(--red)">${iss.length}</div><div class="stat-l">Issues</div></div>
     <div class="stat c-g"><div class="stat-v" style="color:var(--green)">${rev.length}</div><div class="stat-l">Complete</div></div>
     <div class="stat c-t"><div class="stat-v" style="color:var(--accent)">${sub.length}</div><div class="stat-l">Submitted</div></div>
-    <div class="stat c-b"><div class="stat-v">${nurses.length}</div><div class="stat-l">Total</div></div>`;
+    <div class="stat c-b"><div class="stat-v">${nurses.length}</div><div class="stat-l">Total Staff</div></div>`;
+
   document.getElementById('d-teams').innerHTML=Object.keys(TEAMS).map(t=>{
     const tn=nurses.filter(n=>n.home_team===t);
     const done=tn.filter(n=>n.daily_date===today&&n.self_submitted);
     const pct=tn.length?Math.round(done.length/tn.length*100):0;
-    const cls=pct>=80?'pf-t':pct>=50?'pf-g':'pf-r';
-    return`<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>${TI[t]} ${TEAMS[t]}</span><span style="color:var(--text3)">${done.length}/${tn.length} — ${pct}%</span></div><div class="pbar"><div class="pf ${cls}" style="width:${pct}%"></div></div></div>`;
+    return`<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px"><span>${TI[t]} ${TEAMS[t]}</span><span style="color:var(--text3)">${done.length}/${tn.length} — ${pct}%</span></div><div class="pbar"><div class="pf ${pct>=80?'pf-t':pct>=50?'pf-g':'pf-r'}" style="width:${pct}%"></div></div></div>`;
   }).join('');
-  const latest=nurses.filter(n=>n.daily_date===today&&n.self_submitted&&n.self_submitted_at).sort((a,b)=>(b.self_submitted_at||'').localeCompare(a.self_submitted_at||'')).slice(0,8);
-  document.getElementById('d-latest').innerHTML=latest.length?latest.map(n=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)"><div style="width:32px;height:32px;border-radius:8px;background:${TBG[n.daily_team||n.home_team]||'#334'};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0">${(n.name||'?')[0]}</div><div style="flex:1"><div style="font-size:13px;font-weight:500">${n.name}</div><div style="font-size:11px;color:var(--text3)">${n.self_submitted_at||''}</div></div><span class="tag tg">✓</span></div>`).join(''):'<div class="empty">No submissions yet today</div>';
-  renderRP('dashboard');
+
+  const latest=nurses.filter(n=>n.daily_date===today&&n.self_submitted&&n.self_submitted_at).sort((a,b)=>(b.self_submitted_at||'').localeCompare(a.self_submitted_at||'')).slice(0,6);
+  document.getElementById('d-latest').innerHTML=latest.length?latest.map(n=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)"><div style="width:32px;height:32px;border-radius:8px;background:${TBG[n.daily_team||n.home_team]||'#334'};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff">${(n.name||'?')[0]}</div><div style="flex:1"><div style="font-size:13px;font-weight:500">${n.name}</div><div style="font-size:11px;color:var(--text3)">${n.self_submitted_at||''}</div></div><span class="tag tg">✓</span></div>`).join(''):'<div class="empty">No submissions yet today</div>';
+
+  // Today visits from DB
+  try{
+    const vdata=await sG('daily_visits','?date=eq.'+today+'&select=*&limit=1');
+    document.getElementById('d-visits-date').textContent=today;
+    if(vdata&&vdata.length){
+      const v=vdata[0];
+      document.getElementById('d-visits').innerHTML=`
+        <div class="statsrow" style="margin-bottom:0;flex-wrap:wrap">
+          <div class="stat c-t" style="min-width:80px;padding:10px 12px"><div class="stat-v" style="font-size:20px">${v.total_visits||0}</div><div class="stat-l">Total</div></div>
+          <div class="stat c-b" style="min-width:80px;padding:10px 12px"><div class="stat-v" style="font-size:20px">${v.ns_ivim||0}</div><div class="stat-l">NS (IV/IM)</div></div>
+          <div class="stat c-b" style="min-width:80px;padding:10px 12px"><div class="stat-v" style="font-size:20px">${v.ns_dress||0}</div><div class="stat-l">Dressing</div></div>
+          <div class="stat c-o" style="min-width:80px;padding:10px 12px"><div class="stat-v" style="font-size:20px">${v.vaccine||0}</div><div class="stat-l">Vaccine</div></div>
+          <div class="stat c-r" style="min-width:80px;padding:10px 12px"><div class="stat-v" style="font-size:20px">${v.phlebotomy||0}</div><div class="stat-l">Phlebotomy</div></div>
+          <div class="stat c-p" style="min-width:80px;padding:10px 12px"><div class="stat-v" style="font-size:20px">${v.consultation||0}</div><div class="stat-l">Consultation</div></div>
+          <div class="stat c-r" style="min-width:80px;padding:10px 12px"><div class="stat-v" style="font-size:20px;color:var(--red)">${v.cancel_total||0}</div><div class="stat-l">Cancelled</div></div>
+        </div>`;
+    } else {
+      document.getElementById('d-visits').innerHTML='<div class="empty">No visit data for today</div>';
+    }
+  }catch(e){document.getElementById('d-visits').innerHTML='<div class="empty">—</div>';}
+
+  // Census
+  try{
+    const month=new Date().toISOString().slice(0,7);
+    const cdata=await sG('census_entries','?month=eq.'+month+'&select=*');
+    if(cdata&&cdata.length){
+      const admit=cdata.reduce((s,r)=>s+(r.new_admissions||0),0);
+      const disc=cdata.reduce((s,r)=>s+(r.discharges||0),0);
+      const active=admit-disc;
+      document.getElementById('d-census').innerHTML=`
+        <div class="statsrow" style="margin-bottom:0">
+          <div class="stat c-g" style="padding:12px 14px"><div class="stat-v" style="font-size:24px;color:var(--green)">${admit}</div><div class="stat-l">New Admissions</div></div>
+          <div class="stat c-r" style="padding:12px 14px"><div class="stat-v" style="font-size:24px;color:var(--red)">${disc}</div><div class="stat-l">Discharges</div></div>
+          <div class="stat c-t" style="padding:12px 14px"><div class="stat-v" style="font-size:24px;color:var(--accent)">${active}</div><div class="stat-l">Active Patients</div></div>
+        </div>`;
+    } else {
+      document.getElementById('d-census').innerHTML='<div class="empty">No census data this month</div>';
+    }
+  }catch(e){document.getElementById('d-census').innerHTML='<div class="empty">—</div>';}
 }
 
 // STAFF
@@ -666,24 +758,7 @@ function renderStaff(){
 function sCard(n,today){
   const st=nSt(n,today);
   const shf=(SHIFTS[n.daily_team||n.home_team]||[]).find(s=>s.id===n.daily_shift);
-  return`<div class="scard">
-    <div class="scardtop">
-      <div class="sav" style="background:${TBG[n.home_team]||'#334'}">${(n.name||'?')[0]}</div>
-      <div style="flex:1"><div class="sn">${n.name||'-'}</div><div class="sp">${n.pos||''} · <span class="sbid">${n.badge||''}</span></div></div>
-      <span class="stbadge ${st.c}">${st.l}</span>
-    </div>
-    <div class="stags">
-      <span class="tag ${TCL[n.home_team]||'tgr'}">${TI[n.home_team]||''} ${TEAMS[n.home_team]||'-'}</span>
-      ${n.daily_team&&n.daily_team!==n.home_team?'<span class="tag tgld">Today: '+TEAMS[n.daily_team]+'</span>':''}
-    </div>
-    ${shf?'<div class="sshift">'+shf.l+'</div>':'<div class="snosh">⏸ No shift today</div>'}
-    <div class="sacts">
-      <button class="sa" onclick="openShift('${n.id}')">Shift 🗓</button>
-      <button class="sa" onclick="openShift('${n.id}')">Team 🏷</button>
-      <button class="sa" onclick="editStaff('${n.id}')">Edit ✏️</button>
-      <button class="sa p" onclick="viewCheck('${n.id}')">Checklist 📋</button>
-    </div>
-  </div>`;
+  return`<div class="scard"><div class="scardtop"><div class="sav" style="background:${TBG[n.home_team]||'#334'}">${(n.name||'?')[0]}</div><div style="flex:1"><div class="sn">${n.name||'-'}</div><div class="sp">${n.pos||''} · <span class="sbid">${n.badge||''}</span></div></div><span class="stbadge ${st.c}">${st.l}</span></div><div class="stags"><span class="tag ${TCL[n.home_team]||'tgr'}">${TI[n.home_team]||''} ${TEAMS[n.home_team]||'-'}</span>${n.daily_team&&n.daily_team!==n.home_team?'<span class="tag tgld">Today: '+TEAMS[n.daily_team]+'</span>':''}</div>${shf?'<div class="sshift">'+shf.l+'</div>':'<div class="snosh">⏸ No shift today</div>'}<div class="sacts"><button class="sa" onclick="openShift('${n.id}')">Shift 🗓</button><button class="sa" onclick="openShift('${n.id}')">Team 🏷</button><button class="sa" onclick="editStaff('${n.id}')">Edit ✏️</button><button class="sa p" onclick="viewCheck('${n.id}')">Checklist 📋</button></div></div>`;
 }
 
 // SHIFT
@@ -693,8 +768,7 @@ function openShift(nid){
   shiftST=n.daily_team||n.home_team;
   document.getElementById('shift-mtitle').textContent='Today\'s Shift — '+n.name;
   document.getElementById('shift-tchips').innerHTML=Object.entries(TEAMS).map(([k,v])=>`<button class="tchip ${k===shiftST?'sel':''}" onclick="pickST('${k}',this)">${TI[k]} ${v}</button>`).join('');
-  renderSO(shiftST,n.daily_shift);
-  openOvl('ovl-shift');
+  renderSO(shiftST,n.daily_shift);openOvl('ovl-shift');
 }
 function pickST(t,el){shiftST=t;shiftSel=null;document.querySelectorAll('#shift-tchips .tchip').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');renderSO(t,null);}
 function renderSO(t,cur){
@@ -712,21 +786,19 @@ async function saveShift(){
 function viewCheck(nid){
   const n=nurses.find(x=>x.id==nid);if(!n)return;
   const today=new Date().toISOString().split('T')[0];
-  const isToday=n.daily_date===today;
-  const checks=isToday?n.self_checks||{}:{};
+  const isToday=n.daily_date===today;const checks=isToday?n.self_checks||{}:{};
   const ac=allC(n.home_team);
   let h='<div style="font-size:15px;font-weight:800;margin-bottom:4px">📋 '+n.name+'</div>';
   h+='<div style="font-size:12px;color:var(--text3);margin-bottom:16px">'+TI[n.home_team]+' '+TEAMS[n.home_team]+(isToday&&n.self_submitted?' · Submitted '+n.self_submitted_at:' · Not submitted today')+'</div>';
   if(!isToday||!n.self_submitted){h+='<div class="empty">No submission today</div>';}
   else{
     h+=ac.map(c=>{const v=checks[c.k];return`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px"><span>${c.i}</span><span style="flex:1">${c.n}</span><span class="tag ${v==='pass'?'tg':v==='fail'?'tr':'tgr'}">${v==='pass'?'✓ OK':v==='fail'?'✗ Issue':'—'}</span></div>`;}).join('');
-    if(n.bag_photo)h+=`<div style="position:relative;margin-top:14px"><img src="${n.bag_photo}" style="width:100%;border-radius:10px;max-height:200px;object-fit:cover"><button onclick="this.parentElement.style.display='none'" style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.6);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px">✕</button></div>`;
-    if(n.charge_notes)h+=`<div style="margin-top:12px;padding:10px;background:var(--bg3);border-radius:8px;font-size:12px">📝 ${n.charge_notes}</div>`;
+    if(n.bag_photo){h+=`<div style="position:relative;margin-top:14px"><img src="${n.bag_photo}" style="width:100%;border-radius:10px;max-height:200px;object-fit:cover"><button onclick="this.parentElement.style.display='none'" style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.65);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:13px">✕</button></div>`;}
   }
   document.getElementById('check-body').innerHTML=h;openOvl('ovl-check');
 }
 
-// ADD/EDIT STAFF
+// STAFF CRUD
 function openAddStaff(){staffEid=null;document.getElementById('staff-mtitle').textContent='Add Nurse';['sn-name','sn-email','sn-phone','sn-badge'].forEach(id=>document.getElementById(id).value='');openOvl('ovl-staff');}
 function editStaff(id){
   staffEid=id;const n=nurses.find(x=>x.id==id);if(!n)return;
@@ -748,11 +820,182 @@ function renderReadiness(){
   const today=new Date().toISOString().split('T')[0];
   document.getElementById('rd-date').textContent=today;
   const ac=[...CA,...CB,...CT];
-  document.getElementById('rd-table').innerHTML=`<table><thead><tr><th>Nurse</th><th>Team</th><th>Shift</th><th>Status</th>${ac.map(c=>'<th>'+c.i+'</th>').join('')}<th>Photo</th></tr></thead><tbody>${nurses.map(n=>{
+  document.getElementById('rd-table').innerHTML=`<table><thead><tr><th>Nurse</th><th>Team Today</th><th>Shift</th><th>Status</th>${ac.map(c=>'<th>'+c.i+'</th>').join('')}<th>Photo</th></tr></thead><tbody>${nurses.map(n=>{
     const isT=n.daily_date===today;const ch=isT?n.self_checks||{}:{};
     const st=nSt(n,today);const shf=(SHIFTS[n.daily_team||n.home_team]||[]).find(s=>s.id===n.daily_shift);
-    return`<tr><td><div style="font-weight:600;white-space:nowrap">${n.name}</div><div style="font-size:10px;color:var(--text3)">${n.badge}</div></td><td><span class="tag ${TCL[n.daily_team||n.home_team]||'tgr'}" style="font-size:10px">${TI[n.daily_team||n.home_team]||''} ${TEAMS[n.daily_team||n.home_team]||'-'}</span></td><td style="font-size:11px;color:var(--text2);white-space:nowrap">${shf?shf.l:'—'}</td><td><span class="stbadge ${st.c}">${st.l}</span></td>${ac.map(c=>{const v=ch[c.k];return'<td style="text-align:center">'+(v==='pass'?'<span style="color:var(--green)">✓</span>':v==='fail'?'<span style="color:var(--red)">✗</span>':'<span style="color:var(--text3)">—</span>')+'</td>';}).join('')}<td>${n.bag_photo&&isT?'<a href="'+n.bag_photo+'" target="_blank" style="color:var(--accent);font-size:12px">📷</a>':'—'}</td></tr>`;
+    const team=n.daily_team||n.home_team;
+    return`<tr><td><div style="font-weight:600;white-space:nowrap">${n.name}</div><div style="font-size:10px;color:var(--text3)">${n.badge}</div></td><td><span class="tag ${TCL[team]||'tgr'}" style="font-size:10px">${TI[team]||''} ${TEAMS[team]||'-'}</span></td><td style="font-size:11px;color:var(--text2);white-space:nowrap">${shf?shf.l:'—'}</td><td><span class="stbadge ${st.c}">${st.l}</span></td>${ac.map(c=>{const v=ch[c.k];return'<td style="text-align:center">'+(v==='pass'?'<span style="color:var(--green)">✓</span>':v==='fail'?'<span style="color:var(--red)">✗</span>':'<span style="color:var(--text3)">—</span>')+'</td>';}).join('')}<td>${n.bag_photo&&isT?'<a href="'+n.bag_photo+'" target="_blank" style="color:var(--accent);font-size:12px">📷</a>':'—'}</td></tr>`;
   }).join('')}</tbody></table>`;
+}
+
+function exportChecklist(){
+  const today=new Date().toISOString().split('T')[0];
+  const ac=[...CA,...CB,...CT];
+  const headers=['Name','Badge','Team Today','Shift','Status','Submitted At','100% Complete',...ac.map(c=>c.n),'Photo'];
+  const rows=nurses.map(n=>{
+    const isT=n.daily_date===today;const ch=isT?n.self_checks||{}:{};
+    const st=nSt(n,today);const shf=(SHIFTS[n.daily_team||n.home_team]||[]).find(s=>s.id===n.daily_shift);
+    const team=n.daily_team||n.home_team;
+    const allPass=ac.every(c=>ch[c.k]==='pass');
+    return[n.name||'',n.badge||'',TEAMS[team]||team||'',shf?shf.l:'',st.l,isT&&n.self_submitted_at?n.self_submitted_at:'',isT&&n.self_submitted?(allPass?'✓ 100%':'Partial'):'No',...ac.map(c=>{const v=ch[c.k];return v==='pass'?'✓':v==='fail'?'✗':'—';}),n.bag_photo&&isT?'Yes':'No'];
+  });
+  const csv=[headers,...rows].map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download='Daily_Checklist_'+today+'.csv';a.click();toast('Downloaded ✓','ok');
+}
+
+// DAILY VISITS
+function initNurseVisitRows(){
+  nurseVisitRows=[];renderNurseRows();
+}
+function addNurseVisitRow(){
+  nurseVisitRows.push({name:'',badge:'',service:'Nursing Services',visits:0,cancelled:0});
+  renderNurseRows();
+}
+function renderNurseRows(){
+  const tbody=document.getElementById('nurse-visits-body');
+  tbody.innerHTML=nurseVisitRows.map((r,i)=>`<tr>
+    <td><input class="fi" style="width:160px;padding:5px 8px;font-size:12px" value="${r.name}" oninput="nurseVisitRows[${i}].name=this.value" placeholder="Nurse name"></td>
+    <td><input class="fi" style="width:80px;padding:5px 8px;font-size:12px" value="${r.badge}" oninput="nurseVisitRows[${i}].badge=this.value" placeholder="Badge"></td>
+    <td><select class="fi" style="padding:5px 8px;font-size:12px" onchange="nurseVisitRows[${i}].service=this.value">
+      <option ${r.service==='Nursing Services'?'selected':''}>Nursing Services</option>
+      <option ${r.service==='Phlebotomy'?'selected':''}>Phlebotomy</option>
+      <option ${r.service==='Vaccine'?'selected':''}>Vaccine</option>
+      <option ${r.service==='Consultation'?'selected':''}>Consultation</option>
+      <option ${r.service==='Dialysis'?'selected':''}>Dialysis</option>
+    </select></td>
+    <td><input type="number" class="fi" style="width:80px;padding:5px 8px;font-size:12px" value="${r.visits}" min="0" oninput="nurseVisitRows[${i}].visits=+this.value"></td>
+    <td><input type="number" class="fi" style="width:80px;padding:5px 8px;font-size:12px;color:var(--red)" value="${r.cancelled}" min="0" oninput="nurseVisitRows[${i}].cancelled=+this.value"></td>
+    <td><button onclick="nurseVisitRows.splice(${i},1);renderNurseRows()" style="background:rgba(255,92,92,0.1);border:1px solid rgba(255,92,92,0.2);color:#ff9999;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:12px">✕</button></td>
+  </tr>`).join('');
+  if(!nurseVisitRows.length)tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px;font-size:13px">Click "+ Add Row" to add nurse visit details</td></tr>';
+}
+
+async function saveVisits(){
+  const date=document.getElementById('v-date').value;
+  if(!date){toast('Select a date','err');return;}
+  const summary={
+    date,
+    total_visits:+document.getElementById('v-total').value||0,
+    ns_ivim:+document.getElementById('v-ns-ivim').value||0,
+    ns_dress:+document.getElementById('v-ns-dress').value||0,
+    vaccine:+document.getElementById('v-vaccine').value||0,
+    phlebotomy:+document.getElementById('v-phlebo').value||0,
+    consultation:+document.getElementById('v-consult').value||0,
+    cancel_total:+document.getElementById('v-cancel-total').value||0,
+    cancel_blood:+document.getElementById('v-cancel-blood').value||0,
+    cancel_other:+document.getElementById('v-cancel-other').value||0,
+    nurse_details:JSON.stringify(nurseVisitRows)
+  };
+  try{
+    // Check if exists
+    const ex=await sG('daily_visits','?date=eq.'+date+'&select=id');
+    if(ex&&ex.length)await sU('daily_visits','?date=eq.'+date,summary);
+    else await sP('daily_visits',summary);
+    toast('Visits saved ✓','ok');loadVisitsHistory();
+  }catch(e){toast('Error: '+e.message,'err');}
+}
+
+async function loadVisitsHistory(){
+  try{
+    const data=await sG('daily_visits','?order=date.desc&limit=30&select=*')||[];
+    visitsHistory=data;
+    if(!data.length){document.getElementById('visits-history').innerHTML='<div class="empty">No visit history yet</div>';return;}
+    document.getElementById('visits-history').innerHTML=`<table>
+      <thead><tr><th>Date</th><th>Total</th><th>NS (IV/IM)</th><th>Dressing</th><th>Vaccine</th><th>Phlebotomy</th><th>Consultation</th><th>Cancelled</th><th>Blood</th><th>Other</th></tr></thead>
+      <tbody>${data.map(v=>`<tr onclick="loadVisitEntry('${v.date}')" style="cursor:pointer">
+        <td style="font-weight:600">${v.date}</td>
+        <td style="font-weight:700;color:var(--accent)">${v.total_visits||0}</td>
+        <td>${v.ns_ivim||0}</td><td>${v.ns_dress||0}</td>
+        <td>${v.vaccine||0}</td><td>${v.phlebotomy||0}</td>
+        <td>${v.consultation||0}</td>
+        <td style="color:var(--red)">${v.cancel_total||0}</td>
+        <td style="color:var(--red)">${v.cancel_blood||0}</td>
+        <td style="color:var(--red)">${v.cancel_other||0}</td>
+      </tr>`).join('')}</tbody>
+    </table>`;
+  }catch(e){document.getElementById('visits-history').innerHTML='<div class="empty">Error loading history</div>';}
+}
+
+function loadVisitEntry(date){
+  const v=visitsHistory.find(x=>x.date===date);if(!v)return;
+  document.getElementById('v-date').value=date;
+  document.getElementById('v-total').value=v.total_visits||0;
+  document.getElementById('v-ns-ivim').value=v.ns_ivim||0;
+  document.getElementById('v-ns-dress').value=v.ns_dress||0;
+  document.getElementById('v-vaccine').value=v.vaccine||0;
+  document.getElementById('v-phlebo').value=v.phlebotomy||0;
+  document.getElementById('v-consult').value=v.consultation||0;
+  document.getElementById('v-cancel-total').value=v.cancel_total||0;
+  document.getElementById('v-cancel-blood').value=v.cancel_blood||0;
+  document.getElementById('v-cancel-other').value=v.cancel_other||0;
+  if(v.nurse_details)try{nurseVisitRows=JSON.parse(v.nurse_details);renderNurseRows();}catch(e){}
+  toast('Loaded: '+date,'inf');window.scrollTo(0,0);
+}
+
+function exportVisitsExcel(){
+  if(!visitsHistory.length){toast('No data to export','err');return;}
+  const headers=['Date','Total Visits','NS (IV/IM)','NS Dressing','Vaccine','Phlebotomy','Consultation','Total Cancelled','Cancelled Blood','Cancelled Other'];
+  const rows=visitsHistory.map(v=>[v.date,v.total_visits||0,v.ns_ivim||0,v.ns_dress||0,v.vaccine||0,v.phlebotomy||0,v.consultation||0,v.cancel_total||0,v.cancel_blood||0,v.cancel_other||0]);
+  const csv=[headers,...rows].map(r=>r.map(c=>'"'+String(c)+'"').join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download='Daily_Visits_Report.csv';a.click();toast('Exported ✓','ok');
+}
+
+// CENSUS
+function openAddCensus(){
+  document.getElementById('cm-month').value=new Date().toISOString().slice(0,7);
+  document.getElementById('cm-admit').value='';document.getElementById('cm-discharge').value='';document.getElementById('cm-notes').value='';
+  openOvl('ovl-census');
+}
+async function saveCensus(){
+  const month=document.getElementById('cm-month').value;
+  const admit=+document.getElementById('cm-admit').value||0;
+  const disc=+document.getElementById('cm-discharge').value||0;
+  const notes=document.getElementById('cm-notes').value;
+  if(!month){toast('Select a month','err');return;}
+  try{
+    await sP('census_entries',{month,new_admissions:admit,discharges:disc,notes});
+    toast('Census saved ✓','ok');closeOvl('ovl-census');renderCensus();
+  }catch(e){toast('Error: '+e.message,'err');}
+}
+
+async function renderCensus(){
+  const month=document.getElementById('census-month').value;
+  try{
+    // All data up to this month for cumulative
+    const allData=await sG('census_entries','?order=month.asc&select=*')||[];
+    // This month
+    const thisMonth=allData.filter(r=>r.month===month);
+    const totalAdmit=thisMonth.reduce((s,r)=>s+(r.new_admissions||0),0);
+    const totalDisc=thisMonth.reduce((s,r)=>s+(r.discharges||0),0);
+    // Cumulative active (all time)
+    const cumAdmit=allData.reduce((s,r)=>s+(r.new_admissions||0),0);
+    const cumDisc=allData.reduce((s,r)=>s+(r.discharges||0),0);
+    const active=cumAdmit-cumDisc;
+
+    document.getElementById('census-stats').innerHTML=`
+      <div class="census-card green"><div class="census-val" style="color:var(--green)">${totalAdmit}</div><div class="census-lbl">New Admissions</div><div style="font-size:11px;color:var(--text3);margin-top:4px">${month}</div></div>
+      <div class="census-card red"><div class="census-val" style="color:var(--red)">${totalDisc}</div><div class="census-lbl">Discharges</div><div style="font-size:11px;color:var(--text3);margin-top:4px">${month}</div></div>
+      <div class="census-card blue"><div class="census-val" style="color:var(--accent)">${active}</div><div class="census-lbl">Active Patients</div><div style="font-size:11px;color:var(--text3);margin-top:4px">Total (all time)</div></div>`;
+
+    // Monthly breakdown table
+    const grouped={};
+    allData.forEach(r=>{
+      if(!grouped[r.month])grouped[r.month]={admit:0,disc:0};
+      grouped[r.month].admit+=r.new_admissions||0;
+      grouped[r.month].disc+=r.discharges||0;
+    });
+    let cumActive=0;
+    const tableRows=Object.entries(grouped).sort().map(([m,d])=>{
+      cumActive+=d.admit-d.disc;
+      return`<tr><td style="font-weight:600">${m}</td><td style="color:var(--green);font-weight:700">${d.admit}</td><td style="color:var(--red);font-weight:700">${d.disc}</td><td style="color:var(--accent);font-weight:700">${cumActive}</td></tr>`;
+    });
+    document.getElementById('census-table').innerHTML=`<table>
+      <thead><tr><th>Month</th><th>New Admissions</th><th>Discharges</th><th>Active (Cumulative)</th></tr></thead>
+      <tbody>${tableRows.join('')}</tbody>
+    </table>`;
+  }catch(e){document.getElementById('census-stats').innerHTML='<div class="empty">Error loading census</div>';}
 }
 
 // AUDIT
@@ -762,14 +1005,30 @@ function renderAudit(){
   let list=nurses.filter(n=>n.home_team!=='admin');
   if(tf)list=list.filter(n=>n.home_team===tf||n.daily_team===tf);
   if(srch)list=list.filter(n=>(n.name||'').toLowerCase().includes(srch));
-  let tv=0,td=0,tp=0,tnd=0;
-  list.forEach(n=>{const d=audData[n.id]||{};tv+=d.tv||0;td+=d.td||0;tp+=d.tp||0;tnd+=d.tnd||0;});
+  let tv=0,td=0,tc=0,tp=0,tnd=0;
+  list.forEach(n=>{const d=audData[n.id]||{};tv+=d.tv||0;td+=d.td||0;tc+=d.tc||0;tp+=d.tp||0;tnd+=d.tnd||0;});
   const rate=tv?Math.round(td/tv*100):0;
-  document.getElementById('aud-sum').innerHTML=`<div class="a-sum-item" style="display:flex;flex-direction:column;gap:2px"><div class="asv" style="color:var(--accent)">${td}</div><div class="asl">Documented</div></div><div class="a-sum-item" style="display:flex;flex-direction:column;gap:2px"><div class="asv" style="color:var(--blue)">${tv}</div><div class="asl">Total Visits</div></div><div class="a-sum-item" style="display:flex;flex-direction:column;gap:2px"><div class="asv" style="color:var(--gold)">${rate}%</div><div class="asl">Team Rate</div></div><div class="a-sum-item" style="display:flex;flex-direction:column;gap:2px"><div class="asv" style="color:var(--red)">${tnd}</div><div class="asl">Not Documented</div></div>`;
+  document.getElementById('aud-sum').innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:18px;font-weight:800;color:var(--accent)">${td}</div><div style="font-size:11px;color:var(--text3)">Documented</div></div>
+    <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:18px;font-weight:800;color:var(--green)">${tc}</div><div style="font-size:11px;color:var(--text3)">Completed</div></div>
+    <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:18px;font-weight:800;color:var(--blue)">${tv}</div><div style="font-size:11px;color:var(--text3)">Total Visits</div></div>
+    <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:18px;font-weight:800;color:var(--gold)">${rate}%</div><div style="font-size:11px;color:var(--text3)">Team Rate</div></div>
+    <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:18px;font-weight:800;color:var(--red)">${tnd}</div><div style="font-size:11px;color:var(--text3)">Not Documented</div></div>`;
   const ISS=['No Issue ✅','Late ⏰','Incomplete ⚠️','Wrong Info ❌','Other ✏️'];
-  document.getElementById('aud-table').innerHTML=`<table><thead><tr><th>Nurse</th><th>Total Visits</th><th>Documented ✅</th><th>Partial</th><th>Not Doc ❌</th><th>Rate</th><th>Issue</th><th>Notes</th></tr></thead><tbody>${list.map(n=>{
+  document.getElementById('aud-table').innerHTML=`<table><thead><tr><th>Nurse</th><th>Total</th><th>Completed ✅</th><th>Documented</th><th>Partial</th><th>Not Doc ❌</th><th>Rate</th><th>Issue</th><th>Other</th><th>Notes</th></tr></thead><tbody>${list.map(n=>{
     const d=audData[n.id]||{};const r=d.tv&&d.td?Math.round(d.td/d.tv*100)+'%':'—';
-    return`<tr><td><div style="font-weight:600;white-space:nowrap">${n.name}</div><div style="font-size:10px;color:var(--text3)">${TEAMS[n.home_team]||n.home_team}</div></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px" value="${d.tv||''}" onchange="ua('${n.id}','tv',this.value)" placeholder="0"></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px;color:var(--green)" value="${d.td||''}" onchange="ua('${n.id}','td',this.value)" placeholder="0"></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px;color:var(--gold)" value="${d.tp||''}" onchange="ua('${n.id}','tp',this.value)" placeholder="0"></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px;color:var(--red)" value="${d.tnd||''}" onchange="ua('${n.id}','tnd',this.value)" placeholder="0"></td><td><span style="font-size:14px;font-weight:800;color:${parseInt(r)>=80?'var(--green)':parseInt(r)>=50?'var(--gold)':'var(--red)'}">${r}</span></td><td><select class="fi" style="width:130px;padding:5px 8px;font-size:11px" onchange="ua('${n.id}','issue',this.value)">${ISS.map(t=>`<option ${(d.issue||'No Issue ✅')===t?'selected':''}>${t}</option>`).join('')}</select>${d.issue==='Other ✏️'?`<br><input type="text" class="fi" style="width:130px;padding:4px 8px;font-size:11px;margin-top:4px" value="${d.other||''}" onchange="ua('${n.id}','other',this.value)" placeholder="Describe...">`:''}</td><td><input type="text" class="fi" style="width:110px;padding:5px 8px;font-size:12px" value="${d.notes||''}" onchange="ua('${n.id}','notes',this.value)" placeholder="Notes..."></td></tr>`;
+    return`<tr>
+      <td><div style="font-weight:600;white-space:nowrap">${n.name}</div><div style="font-size:10px;color:var(--text3)">${TEAMS[n.home_team]||n.home_team}</div></td>
+      <td><input type="number" min="0" class="fi" style="width:65px;padding:5px 8px;font-size:12px" value="${d.tv||''}" onchange="ua('${n.id}','tv',this.value)" placeholder="0"></td>
+      <td><input type="number" min="0" class="fi" style="width:65px;padding:5px 8px;font-size:12px;color:var(--green)" value="${d.tc||''}" onchange="ua('${n.id}','tc',this.value)" placeholder="0"></td>
+      <td><input type="number" min="0" class="fi" style="width:65px;padding:5px 8px;font-size:12px;color:var(--accent)" value="${d.td||''}" onchange="ua('${n.id}','td',this.value)" placeholder="0"></td>
+      <td><input type="number" min="0" class="fi" style="width:65px;padding:5px 8px;font-size:12px;color:var(--gold)" value="${d.tp||''}" onchange="ua('${n.id}','tp',this.value)" placeholder="0"></td>
+      <td><input type="number" min="0" class="fi" style="width:65px;padding:5px 8px;font-size:12px;color:var(--red)" value="${d.tnd||''}" onchange="ua('${n.id}','tnd',this.value)" placeholder="0"></td>
+      <td><span style="font-size:14px;font-weight:800;color:${parseInt(r)>=80?'var(--green)':parseInt(r)>=50?'var(--gold)':'var(--red)'}">${r}</span></td>
+      <td><select class="fi" style="width:120px;padding:5px 8px;font-size:11px" onchange="ua('${n.id}','issue',this.value)">${ISS.map(t=>`<option ${(d.issue||'No Issue ✅')===t?'selected':''}>${t}</option>`).join('')}</select></td>
+      <td><input type="text" class="fi" style="width:100px;padding:5px 8px;font-size:11px" value="${d.other||''}" onchange="ua('${n.id}','other',this.value)" placeholder="${d.issue==='Other ✏️'?'Describe...':''}"></td>
+      <td><input type="text" class="fi" style="width:100px;padding:5px 8px;font-size:12px" value="${d.notes||''}" onchange="ua('${n.id}','notes',this.value)" placeholder="Notes..."></td>
+    </tr>`;
   }).join('')}</tbody></table>`;
 }
 function ua(id,f,v){if(!audData[id])audData[id]={};audData[id][f]=isNaN(Number(v))?v:Number(v);}
@@ -777,41 +1036,72 @@ async function saveAudit(){
   const date=document.getElementById('aud-date').value;const auditor=document.getElementById('aud-auditor').value;
   const rows=Object.entries(audData).filter(([,d])=>d.tv);
   if(!rows.length){toast('No data to save','err');return;}
-  try{for(const [nid,d]of rows){const n=nurses.find(x=>x.id==nid);await sP('audit_logs',{nurse_id:nid,nurse_name:n?.name,team:n?.home_team,date,auditor,total_visits:d.tv,documented:d.td,partial:d.tp,not_documented:d.tnd,issue_type:d.issue,notes:d.notes});}toast('Audit saved ✓','ok');}
+  try{for(const [nid,d]of rows){const n=nurses.find(x=>x.id==nid);await sP('audit_logs',{nurse_id:nid,nurse_name:n?.name,team:n?.home_team,date,auditor,total_visits:d.tv,completed:d.tc,documented:d.td,partial:d.tp,not_documented:d.tnd,issue_type:d.issue,other_notes:d.other,notes:d.notes});}toast('Audit saved ✓','ok');}
   catch(e){toast('Error: '+e.message,'err');}
 }
 
 // PERFORMANCE
-function renderPerf(){
-  const today=new Date().toISOString().split('T')[0];const medals=['🥇','🥈','🥉'];
+async function renderPerformance(){
+  const today=new Date().toISOString().split('T')[0];
+  const medals=['🥇','🥈','🥉'];
+
+  // Readiness & Attendance
   const scored=nurses.map(n=>{
     const isT=n.daily_date===today;const sub=isT&&n.self_submitted;
     const ac=allC(n.home_team);const ch=isT?n.self_checks||{}:{};
     const pass=ac.filter(c=>ch[c.k]==='pass').length;
     const pct=ac.length?Math.round(pass/ac.length*100):0;
-    return{...n,score:sub?(40+pct*0.6):0,sub,pct};
+    const full=ac.length>0&&ac.every(c=>ch[c.k]==='pass');
+    return{...n,score:sub?(40+pct*0.6):0,sub,pct,full};
   }).sort((a,b)=>b.score-a.score);
-  document.getElementById('perf-wrap').innerHTML=`<div class="sec"><div class="tblw"><table><thead><tr><th>#</th><th>Nurse</th><th>Team</th><th>Submitted</th><th>Checklist Score</th><th>Total Score</th></tr></thead><tbody>${scored.map((n,i)=>`<tr><td style="font-size:17px">${i<3?medals[i]:i+1}</td><td><div style="font-weight:600">${n.name}</div><div style="font-size:11px;color:var(--text3)">${n.badge}</div></td><td><span class="tag ${TCL[n.home_team]||'tgr'}">${TI[n.home_team]||''} ${TEAMS[n.home_team]||'-'}</span></td><td>${n.sub?'<span class="tag tg">✓ Yes</span>':'<span class="tag tgr">No</span>'}</td><td><div style="display:flex;align-items:center;gap:8px"><div class="pbar" style="width:80px"><div class="pf ${n.pct>=80?'pf-t':n.pct>=50?'pf-g':'pf-r'}" style="width:${n.pct}%"></div></div><span style="font-size:12px;color:var(--text2)">${n.pct}%</span></div></td><td><span style="font-size:20px;font-weight:800;color:${n.score>=80?'var(--green)':n.score>=50?'var(--gold)':'var(--text3)'}">${Math.round(n.score)}</span></td></tr>`).join('')}</tbody></table></div></div>`;
-}
 
-// CHAT
-const ROOMS=[{id:'general',n:'📢 General — All Leaders'},{id:'admin',n:'🖥️ Admin'},{id:'consultation',n:'📞 Consultation'},{id:'nursing',n:'🏥 Nursing Services'},{id:'phlebotomy',n:'🩸 Phlebotomy'},{id:'vaccine',n:'💉 Vaccine'},{id:'dialysis',n:'🫀 Dialysis'}];
-function renderRooms(){document.getElementById('chat-rooms').innerHTML=ROOMS.map(r=>`<div class="chatroom ${r.id===chatRoom?'act':''}" onclick="pickRoom('${r.id}')"><div class="chatroom-n">${r.n}</div></div>`).join('');loadMsgs();}
-function pickRoom(id){chatRoom=id;renderRooms();}
-async function loadMsgs(){
+  document.getElementById('perf-readiness').innerHTML=scored.map((n,i)=>`
+    <div class="perf-card">
+      <div class="perf-rank">${i<3?medals[i]:i+1}</div>
+      <div class="perf-info">
+        <div class="perf-name">${n.name}</div>
+        <div class="perf-team">${TI[n.home_team]||''} ${TEAMS[n.home_team]||'-'} · ${n.badge}</div>
+        <div style="margin-top:6px;display:flex;gap:8px">
+          ${n.sub?'<span class="tag tg">✓ Present</span>':'<span class="tag tr">✗ Absent</span>'}
+          ${n.full?'<span class="tag tt">100% ✓</span>':''}
+        </div>
+      </div>
+      <div class="perf-bars">
+        <div class="perf-bar-row"><span class="perf-bar-lbl">Checklist</span><div class="perf-bar-wrap"><div class="pbar"><div class="pf ${n.pct>=80?'pf-t':n.pct>=50?'pf-g':'pf-r'}" style="width:${n.pct}%"></div></div></div><span style="font-size:11px;color:var(--text3);width:28px">${n.pct}%</span></div>
+      </div>
+      <div class="perf-score" style="color:${n.score>=80?'var(--green)':n.score>=50?'var(--gold)':'var(--text3)'}">${Math.round(n.score)}</div>
+    </div>`).join('');
+
+  // Documentation from audit_logs
   try{
-    const msgs=await sG('messages','?team=eq.'+chatRoom+'&order=created_at.asc&limit=60')||[];
-    const mb=curAdmin?.badge||'';
-    document.getElementById('chat-rtitle').textContent=ROOMS.find(r=>r.id===chatRoom)?.n||chatRoom;
-    const w=document.getElementById('chat-msgs');
-    w.innerHTML=msgs.length?msgs.map(m=>{const mine=m.sender_badge===mb;const time=new Date(m.created_at).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});return`<div class="bubble ${mine?'me':'them'}">${!mine?'<div class="bsender">'+m.sender_name+'</div>':''}${m.content}<div class="bmeta">${time}</div></div>`;}).join(''):'<div style="text-align:center;color:var(--text3);font-size:13px;padding:32px">No messages yet</div>';
-    w.scrollTop=w.scrollHeight;
-  }catch(e){}
-}
-async function sendMsg(){
-  const inp=document.getElementById('chat-inp');const txt=inp.value.trim();if(!txt)return;inp.value='';
-  try{await sP('messages',{content:txt,sender_badge:curAdmin?.badge,sender_name:curAdmin?.name||curAdmin?.badge,team:chatRoom});loadMsgs();}
-  catch(e){toast('Send failed','err');}
+    const audLogs=await sG('audit_logs','?order=created_at.desc&limit=200&select=*')||[];
+    // Group by nurse
+    const byNurse={};
+    audLogs.forEach(r=>{
+      if(!byNurse[r.nurse_name])byNurse[r.nurse_name]={name:r.nurse_name,team:r.team,tv:0,td:0};
+      byNurse[r.nurse_name].tv+=r.total_visits||0;
+      byNurse[r.nurse_name].td+=r.documented||0;
+    });
+    const docScored=Object.values(byNurse).map(n=>{
+      const rate=n.tv?Math.round(n.td/n.tv*100):0;
+      return{...n,rate};
+    }).sort((a,b)=>b.rate-a.rate);
+
+    if(!docScored.length){document.getElementById('perf-doc').innerHTML='<div class="empty">No audit data yet</div>';return;}
+    document.getElementById('perf-doc').innerHTML=docScored.map((n,i)=>`
+      <div class="perf-card">
+        <div class="perf-rank">${i<3?medals[i]:i+1}</div>
+        <div class="perf-info">
+          <div class="perf-name">${n.name}</div>
+          <div class="perf-team">${TI[n.team]||''} ${TEAMS[n.team]||n.team||'-'}</div>
+          <div style="margin-top:4px;font-size:11px;color:var(--text3)">${n.td} / ${n.tv} visits documented</div>
+        </div>
+        <div class="perf-bars">
+          <div class="perf-bar-row"><span class="perf-bar-lbl">Doc Rate</span><div class="perf-bar-wrap"><div class="pbar"><div class="pf ${n.rate>=80?'pf-t':n.rate>=50?'pf-g':'pf-r'}" style="width:${n.rate}%"></div></div></div><span style="font-size:11px;color:var(--text3);width:28px">${n.rate}%</span></div>
+        </div>
+        <div class="perf-score" style="color:${n.rate>=80?'var(--green)':n.rate>=50?'var(--gold)':'var(--text3)'}">${n.rate}%</div>
+      </div>`).join('');
+  }catch(e){document.getElementById('perf-doc').innerHTML='<div class="empty">Error loading audit data</div>';}
 }
 
 // PASSWORDS
@@ -850,92 +1140,52 @@ function renderPortal(){
   document.getElementById('p-prog').textContent=done+'/'+ac.length+' items';
   const shifts=SHIFTS[pTeam]||SHIFTS[curNurse.home_team]||SHIFTS.admin;
   let h='';
-
   h+=`<div class="pblock"><div class="pblock-title">📅 Today's Shift</div>
     <div style="font-size:11px;color:var(--text3);margin-bottom:8px">Your team today:</div>
     <div class="tchips">${Object.entries(TEAMS).map(([k,v])=>`<button class="tchip ${k===pTeam?'sel':''}" onclick="setPT('${k}')">${TI[k]} ${v}</button>`).join('')}</div>
     ${shifts.map(s=>`<button class="srow ${s.id===pShift?'sel':''} ${s.id==='off'?'off':''}" onclick="setPS('${s.id}',this)"><span>${s.l}</span><span class="stk">✓</span></button>`).join('')}
   </div>`;
-
-  if(sub)h+=`<div class="submitted-bar">✅ Submitted today at ${curNurse.self_submitted_at||''}</div>`;
-
+  if(sub)h+=`<div style="background:rgba(45,217,138,0.07);border:1px solid rgba(45,217,138,0.2);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--green);font-weight:600;margin-bottom:12px">✅ Submitted today at ${curNurse.self_submitted_at||''}</div>`;
   h+=`<div class="qbtns"><button class="qbtn qok" onclick="setAllC('pass')">✅ All OK</button><button class="qbtn qbad" onclick="setAllC('fail')">✗ All Issue</button></div>`;
-
   if(isAdmin){
-    h+=`<div class="pblock"><div class="pblock-title">👗 Appearance Checklist</div>`;
-    h+=tc.a.map(c=>ci(c)).join('');h+=`</div>`;
+    h+=`<div class="pblock"><div class="pblock-title">👗 Appearance Checklist</div>${tc.a.map(c=>ci(c)).join('')}</div>`;
   } else {
-    h+=`<div class="pblock">
-      <div class="ctabs">
-        <div class="ctab ${pTab==='a'?'act':''}" onclick="setPTab('a')">👗 Appearance</div>
-        <div class="ctab ${pTab==='b'?'act':''}" onclick="setPTab('b')">👜 Bag Contents</div>
-        <div class="ctab ${pTab==='t'?'act':''}" onclick="setPTab('t')">💻 Technology</div>
-      </div>
-      ${(pTab==='a'?tc.a:pTab==='b'?tc.b:tc.t).map(c=>ci(c)).join('')}
-    </div>`;
-    h+=`<div class="photobox">
-      <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:3px">📸 Photo Required</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:12px">Take a photo of your Home Care bag & iPad side by side</div>
-      <div class="photoprev">${pPhoto?'<img src="'+pPhoto+'">':`<span>No photo yet</span>`}</div>
-      <input type="file" id="photo-inp" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event)">
-      <button class="btn-go" onclick="document.getElementById('photo-inp').click()">📷 Open Camera</button>
-    </div>`;
+    h+=`<div class="pblock"><div class="ctabs"><div class="ctab ${pTab==='a'?'act':''}" onclick="setPTab('a')">👗 Appearance</div><div class="ctab ${pTab==='b'?'act':''}" onclick="setPTab('b')">👜 Bag Contents</div><div class="ctab ${pTab==='t'?'act':''}" onclick="setPTab('t')">💻 Technology</div></div>${(pTab==='a'?tc.a:pTab==='b'?tc.b:tc.t).map(c=>ci(c)).join('')}</div>`;
+    h+=`<div class="photobox"><div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:3px">📸 Photo Required</div><div style="font-size:12px;color:var(--text2);margin-bottom:12px">Take a photo of your Home Care bag & iPad side by side</div><div class="photoprev">${pPhoto?`<img src="${pPhoto}"><button class="photo-close" onclick="pPhoto=null;renderPortal()">✕</button>`:'<span>No photo yet</span>'}</div><input type="file" id="photo-inp" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event)"><button class="btn-go" onclick="document.getElementById('photo-inp').click()">📷 Open Camera</button></div>`;
   }
-
   h+=`<div style="margin-top:16px;padding-bottom:32px"><button class="btn-go" onclick="submitPortal()">${sub?'🔄 Update Submission':'📤 Submit Readiness'}</button></div>`;
   document.getElementById('portal-body').innerHTML=h;
 }
 function ci(c){const v=pChecks[c.k];return`<div class="citem ${v==='pass'?'pass':v==='fail'?'fail':''}"><div class="ci">${c.i}</div><div class="ct"><div class="cn">${c.n}</div><div class="cd">${c.d}</div></div><div class="cbtns"><button class="ck ${v==='pass'?'ok':''}" onclick="setC('${c.k}','pass')">✓</button><button class="ck ${v==='fail'?'bad':''}" onclick="setC('${c.k}','fail')">✗</button></div></div>`;}
 function setPTab(t){pTab=t;renderPortal();}
 function setPT(t){pTeam=t;pShift=null;renderPortal();}
-function setPS(id,el){pShift=id;document.querySelectorAll('.srow').forEach(r=>r.classList.remove('sel'));el.classList.add('sel');}
+function setPS(id,el){pShift=id;document.querySelectorAll('.pscroll .srow').forEach(r=>r.classList.remove('sel'));el.classList.add('sel');}
 function setC(k,v){if(pChecks[k]===v)delete pChecks[k];else pChecks[k]=v;renderPortal();}
 function setAllC(v){allC(pTeam||curNurse.home_team).forEach(c=>pChecks[c.k]=v);renderPortal();}
 async function handlePhoto(e){
   const file=e.target.files[0];if(!file)return;
-  const r=new FileReader();r.onload=ev=>{const d=document.querySelector('.photoprev');if(d)d.innerHTML='<img src="'+ev.target.result+'">';};r.readAsDataURL(file);
+  const r=new FileReader();r.onload=ev=>{const d=document.querySelector('.photoprev');if(d)d.innerHTML='<img src="'+ev.target.result+'"><button class="photo-close" onclick="pPhoto=null;renderPortal()">✕</button>';};r.readAsDataURL(file);
   toast('Uploading...','inf');
   try{const url=await upPhoto(file,curNurse.badge);pPhoto=url||null;toast(url?'Photo uploaded ✓':'Saved locally','ok');}
   catch(e){toast('Upload failed','err');}
 }
 async function submitPortal(){
   if(!pShift){toast('Select a shift first','err');return;}
-  const ac=allC(pTeam||curNurse.home_team);
-  if(ac.length>0&&ac.filter(c=>pChecks[c.k]).length<ac.length/2){toast('Complete at least half the checklist','err');return;}
   try{
     await sU('nurses','?id=eq.'+curNurse.id,{daily_date:new Date().toISOString().split('T')[0],daily_team:pTeam,daily_shift:pShift,self_checks:pChecks,self_submitted:true,self_submitted_at:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),bag_photo:pPhoto||curNurse.bag_photo||null});
     showThanks();
-    const upd=await sG('nurses','?id=eq.'+curNurse.id+'&select=*');
-    if(upd&&upd[0])curNurse=upd[0];renderPortal();
   }catch(e){toast('Error: '+e.message,'err');}
 }
 
-
-// THANK YOU SCREEN
 function showThanks(){
   document.getElementById('portal-body').innerHTML=`
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;padding:40px">
-      <div style="font-size:72px;margin-bottom:20px">✅</div>
-      <div style="font-size:24px;font-weight:800;color:var(--accent);margin-bottom:10px">شكراً!</div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:65vh;text-align:center;padding:40px">
+      <div style="font-size:80px;margin-bottom:20px">✅</div>
+      <div style="font-size:26px;font-weight:800;color:var(--accent);margin-bottom:10px">شكراً!</div>
       <div style="font-size:16px;color:var(--text);margin-bottom:6px">تم رفع الطلب بنجاح</div>
-      <div style="font-size:13px;color:var(--text2);margin-bottom:32px">Thank you — your readiness has been submitted</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:36px">Your readiness has been submitted successfully</div>
       <button class="btn-go" style="width:200px" onclick="showScr('scr-nurse')">Exit Portal</button>
     </div>`;
-}
-
-// EXCEL EXPORT
-function exportReadinessExcel(){
-  const today=new Date().toISOString().split('T')[0];
-  const rows=[['Name','Badge','Home Team','Today Team','Shift','Status','Submitted At','Photo']];
-  nurses.forEach(n=>{
-    const isT=n.daily_date===today;const st=nSt(n,today);
-    const shf=(SHIFTS[n.daily_team||n.home_team]||[]).find(s=>s.id===n.daily_shift);
-    rows.push([n.name||'',n.badge||'',TEAMS[n.home_team]||n.home_team||'',TEAMS[n.daily_team||n.home_team]||'',shf?shf.l:'No shift',st.l,isT&&n.self_submitted_at?n.self_submitted_at:'',n.bag_photo&&isT?'Yes':'No']);
-  });
-  let csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
-  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Readiness_'+today+'.csv';a.click();
-  toast('Excel downloaded ✓','ok');
 }
 
 // THEME
@@ -950,7 +1200,6 @@ function initTheme(){
   const p=localStorage.getItem('hcp-passes');if(p)try{adPasses=JSON.parse(p);}catch(e){}
 }
 
-// MODAL
 function openOvl(id){document.getElementById(id).classList.add('on');}
 function closeOvl(id){document.getElementById(id).classList.remove('on');}
 document.addEventListener('click',e=>{if(e.target.classList.contains('ovl'))e.target.classList.remove('on');});
