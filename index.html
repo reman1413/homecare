@@ -24,11 +24,13 @@
   --r:12px;--r2:18px;--r3:24px;
 }
 [data-theme="light"]{
-  --bg:#f0f5ff;--bg2:#ffffff;--bg3:#e5edf8;
-  --card:#ffffff;--card2:#f0f5ff;
-  --border:#ccd9f0;--border2:#99b3d9;
-  --text:#0a1830;--text2:#3d5570;--text3:#8ba0be;
-  --shadow:0 4px 24px rgba(0,0,0,0.1);--shadow2:0 2px 10px rgba(0,0,0,0.06);
+  --bg:#edf2f7;--bg2:#f7fafc;--bg3:#e2e8f0;
+  --card:#f7fafc;--card2:#edf2f7;
+  --border:#cbd5e0;--border2:#a0aec0;
+  --accent:#00a884;--accent2:#00917a;--accent3:#00c9a7;
+  --blue:#3b7dd8;--blue2:#5a9cf5;
+  --text:#1a2332;--text2:#4a5568;--text3:#718096;
+  --shadow:0 4px 16px rgba(0,0,0,0.08);--shadow2:0 2px 8px rgba(0,0,0,0.05);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{font-size:14px;}
@@ -351,8 +353,29 @@ tr:hover td{background:rgba(0,229,176,0.02);}
 .spinner{width:18px;height:18px;border-radius:50%;border:2px solid rgba(0,229,176,0.15);border-top-color:var(--accent);animation:spin 0.8s linear infinite;flex-shrink:0;}
 .empty{text-align:center;padding:48px;color:var(--text3);font-size:13px;line-height:1.8;}
 
+
+/* TOOLTIPS */
+[data-tip]{position:relative;}
+[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:rgba(10,20,40,0.95);color:#e8f0fe;font-size:11px;font-weight:500;padding:5px 10px;border-radius:7px;white-space:nowrap;z-index:999;pointer-events:none;border:1px solid rgba(255,255,255,0.1);}
+[data-tip]:hover::before{content:'';position:absolute;bottom:calc(100% + 1px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(10,20,40,0.95);z-index:999;}
+[data-theme="light"] [data-tip]:hover::after{background:rgba(26,35,50,0.95);color:#f7fafc;}
+
+/* CHARTS */
+.chart-container{position:relative;width:100%;height:220px;}
+.chart-container canvas{border-radius:10px;}
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;padding:10px 0;}
+.gauge-label{font-size:12px;color:var(--text2);margin-top:6px;font-weight:600;}
+.gauge-val{font-size:11px;margin-top:2px;font-weight:700;}
+.gauge-vg{color:var(--green);}
+.gauge-g{color:var(--blue);}
+.gauge-ni{color:var(--gold);}
+.gauge-w{color:var(--red);}
+.perf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+.perf-gauge-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center;transition:all 0.2s;}
+.perf-gauge-card:hover{border-color:var(--border2);transform:translateY(-2px);}
 @media(max-width:960px){.rpanel{display:none;}.sgrid{grid-template-columns:1fr;}.g2,.g3{grid-template-columns:1fr;}.statsrow{flex-wrap:wrap;}.stat{min-width:calc(50% - 6px);}.dv-grid{grid-template-columns:1fr 1fr;}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -410,20 +433,20 @@ tr:hover td{background:rgba(0,229,176,0.02);}
   <div class="topnav">
     <div class="tnlogo"><div class="tnlogo-icon">🏥</div><div class="tnlogo-txt">HomeCare Pro</div></div>
     <div class="tntabs">
-      <div class="tntab act" onclick="goPage('dashboard')" id="tn-dashboard">📊 Dashboard</div>
-      <div class="tntab" onclick="goPage('staff')" id="tn-staff">👥 Staff</div>
-      <div class="tntab" onclick="goPage('readiness')" id="tn-readiness">✅ Readiness</div>
-      <div class="tntab" onclick="goPage('visits')" id="tn-visits">📈 Daily Visits</div>
-      <div class="tntab" onclick="goPage('census')" id="tn-census">🏥 Census</div>
-      <div class="tntab" onclick="goPage('audit')" id="tn-audit">📋 Audit</div>
-      <div class="tntab" onclick="goPage('performance')" id="tn-performance">🏆 Performance</div>
+      <div class="tntab act" onclick="goPage('dashboard')" id="tn-dashboard" data-tip="Overview & statistics">📊 Dashboard</div>
+      <div class="tntab" onclick="goPage('staff')" id="tn-staff" data-tip="Manage all nurses">👥 Staff</div>
+      <div class="tntab" onclick="goPage('readiness')" id="tn-readiness" data-tip="Daily readiness checklist">✅ Daily Checklist</div>
+      <div class="tntab" onclick="goPage('visits')" id="tn-visits" data-tip="Enter & view daily visit data">📈 Daily Visits</div>
+      <div class="tntab" onclick="goPage('census')" id="tn-census" data-tip="Monthly patient admissions & discharges">🏥 Census</div>
+      <div class="tntab" onclick="goPage('audit')" id="tn-audit" data-tip="Documentation audit & rates">📋 Audit</div>
+      <div class="tntab" onclick="goPage('performance')" id="tn-performance" data-tip="Staff performance rankings">🏆 Performance</div>
       <div class="tntab" onclick="goPage('passwords')" id="tn-passwords" style="display:none">🔑 Passwords</div>
     </div>
     <div class="tnright">
       <span class="tnsync" id="sync-st" style="color:var(--green)">● Synced</span>
       <span id="clk" style="font-size:11px;color:var(--text3)"></span>
-      <button class="btnref" onclick="doRefresh()" id="ref-btn"><span class="ri">🔄</span> Refresh</button>
-      <button class="thbtn" onclick="toggleTheme()" id="thbtn">☀️</button>
+      <button class="btnref" onclick="doRefresh()" id="ref-btn" data-tip="Refresh all data"><span class="ri">🔄</span> Refresh</button>
+      <button class="thbtn" onclick="toggleTheme()" id="thbtn" data-tip="Toggle light/dark mode">☀️</button>
       <div class="tnuser">
         <div class="tnav" id="tb-av" style="background:linear-gradient(135deg,var(--gold),var(--orange))">R</div>
         <div><div style="font-size:12px;font-weight:700" id="tb-name">Reman</div><div style="font-size:10px;color:var(--accent)" id="tb-role">Superadmin ⭐</div></div>
@@ -444,21 +467,21 @@ tr:hover td{background:rgba(0,229,176,0.02);}
           <div class="sec"><div class="sechdr"><div class="sect">🕐 Latest Submissions</div><div class="secs">Today</div></div><div class="secb" id="d-latest"></div></div>
         </div>
         <div class="g2">
-          <div class="sec"><div class="sechdr"><div class="sect">📈 Today's Visits</div><div class="secs" id="d-visits-date"></div></div><div class="secb" id="d-visits"></div></div>
-          <div class="sec"><div class="sechdr"><div class="sect">🏥 Patient Census</div><div class="secs">This month</div></div><div class="secb" id="d-census"></div></div>
+          <div class="sec"><div class="sechdr"><div class="sect">📈 Visit Trends (30 days)</div><div class="secs" id="d-visits-date"></div></div><div class="secb"><div class="chart-container"><canvas id="visits-chart"></canvas></div><div id="d-visits" style="margin-top:14px"></div></div></div>
+          <div class="sec"><div class="sechdr"><div class="sect">🏥 Patient Census</div><div class="secs">Monthly trend</div></div><div class="secb"><div class="chart-container" style="height:180px"><canvas id="census-chart"></canvas></div><div id="d-census" style="margin-top:14px"></div></div></div>
         </div>
       </div>
 
       <!-- STAFF -->
       <div class="pg" id="pg-staff">
-        <div class="pghdr"><div class="pgtitle">Staff <span class="pgcount" id="staff-cnt"></span></div><button class="btnadd" onclick="openAddStaff()">+ Add Nurse</button></div>
+        <div class="pghdr"><div class="pgtitle">Staff <span class="pgcount" id="staff-cnt"></span></div><button class="btnadd" onclick="openAddStaff()" data-tip="Add a new nurse to the system">+ Add Nurse</button></div>
         <div class="fibar"><input type="text" class="fi fi-g" placeholder="🔍 Search name or badge..." id="staff-srch" oninput="renderStaff()"></div>
         <div id="staff-wrap"><div class="loading"><div class="spinner"></div></div></div>
       </div>
 
       <!-- READINESS -->
       <div class="pg" id="pg-readiness">
-        <div class="pghdr"><div class="pgtitle">Daily Readiness <span style="font-size:12px;color:var(--text3);font-weight:400" id="rd-date"></span></div><button class="btnadd" onclick="exportChecklist()">⬇️ Daily Checklist</button></div>
+        <div class="pghdr"><div class="pgtitle">Daily Readiness <span style="font-size:12px;color:var(--text3);font-weight:400" id="rd-date"></span></div><button class="btnadd" onclick="exportChecklist()" data-tip="Export today's checklist to CSV">⬇️ Daily Checklist</button></div>
         <div class="tblw" id="rd-table"><div class="loading"><div class="spinner"></div></div></div>
       </div>
 
@@ -515,7 +538,7 @@ tr:hover td{background:rgba(0,229,176,0.02);}
 
       <!-- AUDIT -->
       <div class="pg" id="pg-audit">
-        <div class="pghdr"><div class="pgtitle">Documentation Audit</div><button class="btnsave" onclick="saveAudit()">💾 Save Audit</button></div>
+        <div class="pghdr"><div class="pgtitle">Documentation Audit</div><button class="btnsave" onclick="saveAudit()" data-tip="Save audit data to database">💾 Save Audit</button></div>
         <div class="fibar">
           <input type="date" class="fi" id="aud-date" style="width:150px">
           <input type="text" class="fi" placeholder="Auditor name" id="aud-auditor">
@@ -530,7 +553,7 @@ tr:hover td{background:rgba(0,229,176,0.02);}
       <div class="pg" id="pg-performance">
         <div class="pghdr"><div class="pgtitle">Performance</div></div>
         <div class="g2">
-          <div><div class="sec"><div class="sechdr"><div class="sect">✅ Readiness & Attendance</div><div class="secs">Today</div></div><div class="secb" id="perf-readiness"></div></div></div>
+          <div><div class="sec"><div class="sechdr"><div class="sect">📋 Daily Checklist & Attendance</div><div class="secs">Today</div></div><div class="secb" id="perf-readiness"></div></div></div>
           <div><div class="sec"><div class="sechdr"><div class="sect">📋 Documentation Rate</div><div class="secs">From Audit</div></div><div class="secb" id="perf-doc"></div></div></div>
         </div>
       </div>
@@ -651,8 +674,25 @@ let sfTeam='',sfStatus='';
 let nurseVisitRows=[],visitsHistory=[];
 
 async function sbq(m,t,q='',b=null){
-  const r=await fetch(SB+'/rest/v1/'+t+q,{method:m,headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=representation'},...(b?{body:JSON.stringify(b)}:{})});
-  if(r.status===204)return null;const d=await r.json();if(!r.ok)throw new Error(d.message||'DB Error');return d;
+  const url=SB+'/rest/v1/'+t+q;
+  const opts={
+    method:m,
+    headers:{
+      'apikey':SK,
+      'Authorization':'Bearer '+SK,
+      'Content-Type':'application/json',
+      'Prefer':'return=representation',
+      'Accept':'application/json'
+    }
+  };
+  if(b)opts.body=JSON.stringify(b);
+  const r=await fetch(url,opts);
+  if(r.status===204)return null;
+  const txt=await r.text();
+  if(!txt)return null;
+  const d=JSON.parse(txt);
+  if(!r.ok)throw new Error((d&&(d.message||d.error||d.hint))||'DB Error '+r.status);
+  return d;
 }
 const sG=(t,q)=>sbq('GET',t,q);
 const sP=(t,b)=>sbq('POST',t,'',b);
@@ -714,8 +754,17 @@ async function startApp(){
 function tick(){document.getElementById('clk').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});}
 
 async function loadNurses(){
-  try{nurses=await sG('nurses','?select=*&order=name.asc')||[];document.getElementById('sync-st').textContent='● Synced';document.getElementById('sync-st').style.color='var(--green)';}
-  catch(e){document.getElementById('sync-st').textContent='⚠ Error';document.getElementById('sync-st').style.color='var(--red)';toast('Load error','err');}
+  try{
+    const data=await sG('nurses','?select=*&order=name.asc');
+    nurses=Array.isArray(data)?data:[];
+    document.getElementById('sync-st').textContent='● Synced';
+    document.getElementById('sync-st').style.color='var(--green)';
+  }catch(e){
+    console.error('loadNurses:',e);
+    document.getElementById('sync-st').textContent='⚠ '+e.message;
+    document.getElementById('sync-st').style.color='var(--red)';
+    toast('Connection error — check Supabase','err');
+  }
 }
 async function doRefresh(){
   const b=document.getElementById('ref-btn');b.classList.add('spin');
@@ -843,6 +892,11 @@ async function renderDash(){
         </div>`;
     }else{document.getElementById('d-visits').innerHTML='<div class="empty">No visit data for today<br>Enter data in Daily Visits tab</div>';}
   }catch(e){document.getElementById('d-visits').innerHTML='<div class="empty">—</div>';}
+  // Draw visits chart from history
+  try{
+    const hist=await sG('daily_visits','?order=date.asc&limit=30&select=*')||[];
+    if(hist.length)drawVisitsChart(hist);
+  }catch(e){}
 
   // Census
   try{
@@ -1069,6 +1123,7 @@ async function renderCensus(){
   const month=document.getElementById('census-month').value;
   try{
     const allData=await sG('census_entries','?order=month.asc&select=*')||[];
+    drawCensusChart(allData);
     const thisMonth=allData.filter(r=>r.month===month);
     const totalAdmit=thisMonth.reduce((s,r)=>s+(r.new_admissions||0),0);
     const totalDisc=thisMonth.reduce((s,r)=>s+(r.discharges||0),0);
@@ -1143,22 +1198,23 @@ async function renderPerformance(){
     return{...n,score:sub?(40+pct*0.6):0,sub,pct,full};
   }).sort((a,b)=>b.score-a.score);
 
-  document.getElementById('perf-readiness').innerHTML=scored.map((n,i)=>`
-    <div class="perf-card">
-      <div class="perf-rank">${i<3?medals[i]:i+1}</div>
-      <div class="perf-info">
-        <div class="perf-name">${n.name}</div>
-        <div class="perf-team">${TI[n.home_team]||''} ${TEAMS[n.home_team]||'-'} · ${n.badge}</div>
-        <div style="display:flex;gap:6px;margin-top:6px">
-          ${n.sub?'<span class="tag tg">✓ Present</span>':'<span class="tag tr">✗ Absent</span>'}
-          ${n.full?'<span class="tag tt">100% ✓</span>':''}
-        </div>
+  document.getElementById('perf-readiness').innerHTML=scored.map((n,i)=>{
+    const lbl=getGaugeLabel(n.pct);
+    const cid='gauge-'+n.id;
+    return`<div class="perf-gauge-card">
+      <div style="font-size:13px;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${i<3?medals[i]+' ':''} ${n.name}</div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px">${TI[n.home_team]||''} ${TEAMS[n.home_team]||'-'}</div>
+      <canvas id="${cid}" width="140" height="80"></canvas>
+      <div style="font-size:13px;font-weight:800;margin-top:4px">${n.pct}%</div>
+      <div class="gauge-label ${lbl.cls}">${lbl.txt}</div>
+      <div style="display:flex;gap:5px;justify-content:center;margin-top:8px;flex-wrap:wrap">
+        ${n.sub?'<span class="tag tg" style="font-size:10px">✓ Present</span>':'<span class="tag tr" style="font-size:10px">✗ Absent</span>'}
+        ${n.full?'<span class="tag tt" style="font-size:10px">100%</span>':''}
       </div>
-      <div class="perf-bars">
-        <div class="perf-bar-row"><span class="perf-bar-lbl">Checklist</span><div class="perf-bar-wrap"><div class="pbar"><div class="pf ${n.pct>=80?'pf-t':n.pct>=50?'pf-g':'pf-r'}" style="width:${n.pct}%"></div></div></div><span style="font-size:11px;color:var(--text3);width:30px">${n.pct}%</span></div>
-      </div>
-      <div class="perf-score" style="color:${n.score>=80?'var(--green)':n.score>=50?'var(--gold)':'var(--text3)'}">${Math.round(n.score)}</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+  // Draw all gauges after render
+  setTimeout(()=>{scored.forEach(n=>drawGauge('gauge-'+n.id,n.pct));},100);
 
   try{
     const audLogs=await sG('audit_logs','?order=created_at.desc&limit=300&select=*')||[];
@@ -1260,6 +1316,69 @@ async function submitPortal(){
         <button class="btn-go" style="width:200px" onclick="showScr('scr-nurse')">Exit Portal</button>
       </div>`;
   }catch(e){toast('Error: '+e.message,'err');}
+}
+
+
+// ── CHARTS ──
+let visitsChartInst=null,censusChartInst=null;
+
+function drawVisitsChart(data){
+  const ctx=document.getElementById('visits-chart');
+  if(!ctx||typeof Chart==='undefined')return;
+  if(visitsChartInst)visitsChartInst.destroy();
+  const sorted=[...data].sort((a,b)=>a.date.localeCompare(b.date)).slice(-30);
+  const labels=sorted.map(d=>d.date.slice(5));
+  const gc=isDark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)';
+  const tc=isDark?'#7a90be':'#718096';
+  visitsChartInst=new Chart(ctx,{type:'line',data:{labels,datasets:[
+    {label:'Total',data:sorted.map(d=>d.total_visits||0),borderColor:'#00e5b0',backgroundColor:'rgba(0,229,176,0.12)',fill:true,tension:0.4,pointRadius:3,borderWidth:2},
+    {label:'NS (IV/IM)',data:sorted.map(d=>d.ns_ivim||0),borderColor:'#4d9fff',backgroundColor:'rgba(77,159,255,0.08)',fill:true,tension:0.4,pointRadius:2,borderWidth:1.5},
+    {label:'Vaccine',data:sorted.map(d=>d.vaccine||0),borderColor:'#a78bff',backgroundColor:'rgba(167,139,255,0.08)',fill:true,tension:0.4,pointRadius:2,borderWidth:1.5},
+    {label:'Cancelled',data:sorted.map(d=>d.cancel_total||0),borderColor:'#ff5c5c',backgroundColor:'rgba(255,92,92,0.06)',fill:true,tension:0.4,pointRadius:2,borderWidth:1.5},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:tc,font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'rgba(10,20,40,0.95)',titleColor:'#e8f0fe',bodyColor:'#8ba0be',borderColor:'rgba(0,229,176,0.2)',borderWidth:1}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10},maxRotation:45}},y:{grid:{color:gc},ticks:{color:tc,font:{size:10}},beginAtZero:true}}}});
+}
+
+function drawCensusChart(allData){
+  const ctx=document.getElementById('census-chart');
+  if(!ctx||typeof Chart==='undefined')return;
+  if(censusChartInst)censusChartInst.destroy();
+  const grouped={};
+  allData.forEach(r=>{if(!grouped[r.month])grouped[r.month]={a:0,d:0};grouped[r.month].a+=r.new_admissions||0;grouped[r.month].d+=r.discharges||0;});
+  const sorted=Object.entries(grouped).sort();
+  const gc=isDark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)';
+  const tc=isDark?'#7a90be':'#718096';
+  censusChartInst=new Chart(ctx,{type:'bar',data:{labels:sorted.map(([m])=>m.slice(5)+'/'+m.slice(2,4)),datasets:[
+    {label:'Admissions',data:sorted.map(([,d])=>d.a),backgroundColor:'rgba(45,217,138,0.75)',borderColor:'#2dd98a',borderWidth:1,borderRadius:5},
+    {label:'Discharges',data:sorted.map(([,d])=>d.d),backgroundColor:'rgba(255,92,92,0.75)',borderColor:'#ff5c5c',borderWidth:1,borderRadius:5},
+  ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:tc,font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'rgba(10,20,40,0.95)',titleColor:'#e8f0fe',bodyColor:'#8ba0be'}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{size:10}}},y:{grid:{color:gc},ticks:{color:tc,font:{size:10}},beginAtZero:true}}}});
+}
+
+function drawGauge(id,pct){
+  const cv=document.getElementById(id);if(!cv)return;
+  const ctx=cv.getContext('2d');const w=cv.width,h=cv.height;
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2,cy=h*0.8,r=Math.min(w,h)*0.36;
+  ctx.beginPath();ctx.arc(cx,cy,r,Math.PI,2*Math.PI);
+  ctx.strokeStyle=isDark?'rgba(255,255,255,0.08)':'rgba(0,0,0,0.08)';ctx.lineWidth=13;ctx.lineCap='round';ctx.stroke();
+  const color=pct>=80?'#2dd98a':pct>=60?'#4d9fff':pct>=40?'#ffb340':'#ff5c5c';
+  const angle=Math.PI+(pct/100)*Math.PI;
+  ctx.beginPath();ctx.arc(cx,cy,r,Math.PI,angle);
+  ctx.strokeStyle=color;ctx.lineWidth=13;ctx.lineCap='round';ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,5,0,2*Math.PI);ctx.fillStyle=color;ctx.fill();
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(angle);
+  ctx.beginPath();ctx.moveTo(4,0);ctx.lineTo(r-6,0);
+  ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.lineCap='round';ctx.stroke();
+  ctx.restore();
+  // Labels
+  const lblColor=isDark?'rgba(255,255,255,0.3)':'rgba(0,0,0,0.3)';
+  ctx.fillStyle=lblColor;ctx.font='9px Inter,sans-serif';ctx.textAlign='center';
+  ctx.fillText('0',cx-r+2,cy+14);ctx.fillText('100',cx+r-2,cy+14);
+}
+function getGaugeLabel(pct){
+  if(pct>=80)return{txt:'Very Good ⭐',cls:'gauge-vg'};
+  if(pct>=60)return{txt:'Good 👍',cls:'gauge-g'};
+  if(pct>=40)return{txt:'Needs Improvement',cls:'gauge-ni'};
+  return{txt:'Weak',cls:'gauge-w'};
 }
 
 function toggleTheme(){
