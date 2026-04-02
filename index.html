@@ -8,7 +8,7 @@
 <style>
 :root{--bg:#080f1e;--bg2:#0d1628;--bg3:#111d35;--card:#0f1b30;--card2:#152240;--border:#1a2d4a;--border2:#243d62;--accent:#00e5b0;--accent2:#00c99a;--blue:#3b8bff;--purple:#9d7dff;--gold:#ffb340;--green:#2dd98a;--red:#ff5c5c;--orange:#ff8c40;--text:#dde8f5;--text2:#7a90b0;--text3:#3d5070;--shadow:0 16px 48px rgba(0,0,0,0.6);--r:12px;--r2:16px;}
 [data-theme="light"]{--bg:#eef2f7;--bg2:#ffffff;--bg3:#e4eaf2;--card:#ffffff;--card2:#f5f8fc;--border:#d8e2ef;--border2:#c0cfe0;--text:#0d1f38;--text2:#4a6080;--text3:#96aabe;--shadow:0 4px 20px rgba(0,0,0,0.08);}
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;}*::-webkit-scrollbar{width:6px;height:6px;}*::-webkit-scrollbar-track{background:var(--bg2);}*::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}*::-webkit-scrollbar-thumb:hover{background:var(--accent);}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow:hidden;font-size:14px;}
 .scr{position:fixed;inset:0;z-index:100;display:none;background:var(--bg);}
 .scr.on{display:flex;}
@@ -71,7 +71,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .tnlogo{display:flex;align-items:center;gap:9px;margin-right:20px;}
 .tnlogo-icon{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:14px;}
 .tnlogo-txt{font-size:14px;font-weight:800;letter-spacing:-0.3px;}
-.tntabs{display:flex;gap:2px;flex:1;overflow-x:auto;}
+.tntabs{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none;}.tntabs::-webkit-scrollbar{display:none;}
 .tntab{padding:6px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;color:var(--text2);transition:all 0.15s;white-space:nowrap;}
 .tntab:hover{background:var(--bg3);color:var(--text);}
 .tntab.act{background:rgba(0,229,176,0.1);color:var(--accent);}
@@ -226,6 +226,15 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 .loading{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--text2);font-size:13px;gap:10px;}
 .spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(0,229,176,0.15);border-top-color:var(--accent);animation:spin 0.8s linear infinite;flex-shrink:0;}
 .empty{text-align:center;padding:40px;color:var(--text3);font-size:13px;}
+
+/* DONUT CHART */
+.donut-wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:center;}
+.donut-item{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.donut-label{font-size:11px;color:var(--text2);font-weight:600;text-align:center;}
+.donut-val{font-size:13px;font-weight:800;color:var(--text);}
+svg.donut{transform:rotate(-90deg);}
+.donut-center{position:relative;}
+.donut-center-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 @media(max-width:900px){.rpanel{display:none;}.sgrid{grid-template-columns:1fr;}.g2,.g3{grid-template-columns:1fr;}.statsrow{flex-wrap:wrap;}.stat{min-width:calc(50% - 5px);}}
 </style>
 </head>
@@ -354,7 +363,7 @@ tr:hover td{background:rgba(255,255,255,0.02);}
         <div class="pghdr">
           <div class="pgtitle">Daily Visits Entry</div>
           <div style="display:flex;gap:8px;align-items:center">
-            <input type="date" class="fi" id="v-date" style="width:150px">
+            <select class="fi" id="v-date" style="width:160px"></select>
             <button class="btnadd" onclick="saveVisits()">💾 Save</button>
             <button class="btnadd" style="background:linear-gradient(135deg,var(--blue),var(--purple))" onclick="exportVisitsExcel()">⬇️ Export</button>
           </div>
@@ -364,12 +373,12 @@ tr:hover td{background:rgba(255,255,255,0.02);}
           <div class="sechdr"><div class="sect">📊 Daily Summary</div></div>
           <div class="secb">
             <div class="dv-grid">
-              <div class="dv-input-group"><label class="dv-label">Total Visits</label><input type="number" class="dv-input" id="v-total" placeholder="0" min="0"></div>
-              <div class="dv-input-group"><label class="dv-label">🏥 Nursing (IV, IM, SQ, NEB)</label><input type="number" class="dv-input" id="v-ns-ivim" placeholder="0" min="0"></div>
-              <div class="dv-input-group"><label class="dv-label">🩹 Nursing (Dressing)</label><input type="number" class="dv-input" id="v-ns-dress" placeholder="0" min="0"></div>
-              <div class="dv-input-group"><label class="dv-label">💉 Vaccine Visit</label><input type="number" class="dv-input" id="v-vaccine" placeholder="0" min="0"></div>
-              <div class="dv-input-group"><label class="dv-label">🩸 Phlebotomy Visit</label><input type="number" class="dv-input" id="v-phlebo" placeholder="0" min="0"></div>
-              <div class="dv-input-group"><label class="dv-label">📞 Consultation Visit</label><input type="number" class="dv-input" id="v-consult" placeholder="0" min="0"></div>
+              <div class="dv-input-group"><label class="dv-label">Total Visits <span style="font-size:10px;color:var(--accent)">(auto)</span></label><input type="number" class="dv-input" id="v-total" placeholder="Auto" min="0"></div>
+              <div class="dv-input-group"><label class="dv-label">🏥 Nursing (IV, IM, SQ, NEB)</label><input type="number" class="dv-input" id="v-ns-ivim" placeholder="0" min="0" oninput="calcTotal()"></div>
+              <div class="dv-input-group"><label class="dv-label">🩹 Nursing (Dressing)</label><input type="number" class="dv-input" id="v-ns-dress" placeholder="0" min="0" oninput="calcTotal()"></div>
+              <div class="dv-input-group"><label class="dv-label">💉 Vaccine Visit</label><input type="number" class="dv-input" id="v-vaccine" placeholder="0" min="0" oninput="calcTotal()"></div>
+              <div class="dv-input-group"><label class="dv-label">🩸 Phlebotomy Visit</label><input type="number" class="dv-input" id="v-phlebo" placeholder="0" min="0" oninput="calcTotal()"></div>
+              <div class="dv-input-group"><label class="dv-label">📞 Consultation Visit</label><input type="number" class="dv-input" id="v-consult" placeholder="0" min="0" oninput="calcTotal()"></div>
               <div class="dv-input-group"><label class="dv-label">🚫 Total Cancelled</label><input type="number" class="dv-input" id="v-cancel-total" placeholder="0" min="0" style="color:var(--red)"></div>
               <div class="dv-input-group"><label class="dv-label">🩸 Cancelled Blood</label><input type="number" class="dv-input" id="v-cancel-blood" placeholder="0" min="0" style="color:var(--red)"></div>
               <div class="dv-input-group"><label class="dv-label">❌ Cancelled Other</label><input type="number" class="dv-input" id="v-cancel-other" placeholder="0" min="0" style="color:var(--red)"></div>
@@ -614,7 +623,17 @@ async function startApp(){
   await loadNurses();
   renderDash();
   document.getElementById('aud-date').value=new Date().toISOString().split('T')[0];
-  document.getElementById('v-date').value=new Date().toISOString().split('T')[0];
+  // Populate date dropdown for last 30 days
+  const vSel=document.getElementById('v-date');
+  const today=new Date();
+  for(let i=0;i<30;i++){
+    const d=new Date(today);d.setDate(today.getDate()-i);
+    const ds=d.toISOString().split('T')[0];
+    const opt=document.createElement('option');opt.value=ds;
+    opt.textContent=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+    if(i===0)opt.selected=true;
+    vSel.appendChild(opt);
+  }
   document.getElementById('cm-month').value=new Date().toISOString().slice(0,7);
   // Set census month selector
   const now=new Date();
@@ -855,8 +874,8 @@ function addNurseVisitRow(){
 function renderNurseRows(){
   const tbody=document.getElementById('nurse-visits-body');
   tbody.innerHTML=nurseVisitRows.map((r,i)=>`<tr>
-    <td><input class="fi" style="width:160px;padding:5px 8px;font-size:12px" value="${r.name}" oninput="nurseVisitRows[${i}].name=this.value" placeholder="Nurse name"></td>
-    <td><input class="fi" style="width:80px;padding:5px 8px;font-size:12px" value="${r.badge}" oninput="nurseVisitRows[${i}].badge=this.value" placeholder="Badge"></td>
+    <td><input class="fi" style="width:80px;padding:5px 8px;font-size:12px" value="${r.badge}" oninput="lookupBadge(${i},this.value)" placeholder="Badge" list="badge-list-${i}"><datalist id="badge-list-${i}">${nurses.map(n=>`<option value="${n.badge}">${n.name}</option>`).join('')}</datalist></td>
+    <td><input class="fi" style="width:160px;padding:5px 8px;font-size:12px" value="${r.name}" id="nvr-name-${i}" placeholder="Auto from badge" readonly></td>
     <td><select class="fi" style="padding:5px 8px;font-size:12px" onchange="nurseVisitRows[${i}].service=this.value">
       <option ${r.service==='Nursing Services'?'selected':''}>Nursing Services</option>
       <option ${r.service==='Phlebotomy'?'selected':''}>Phlebotomy</option>
@@ -871,17 +890,38 @@ function renderNurseRows(){
   if(!nurseVisitRows.length)tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px;font-size:13px">Click "+ Add Row" to add nurse visit details</td></tr>';
 }
 
+function calcTotal(){
+  const ids=['v-ns-ivim','v-ns-dress','v-vaccine','v-phlebo','v-consult'];
+  const total=ids.reduce((s,id)=>s+(+document.getElementById(id).value||0),0);
+  document.getElementById('v-total').value=total||'';
+}
+function lookupBadge(idx,badge){
+  nurseVisitRows[idx].badge=badge;
+  const n=nurses.find(x=>x.badge===badge.trim());
+  if(n){nurseVisitRows[idx].name=n.name;const el=document.getElementById('nvr-name-'+idx);if(el)el.value=n.name;}
+}
+
 async function saveVisits(){
   const date=document.getElementById('v-date').value;
   if(!date){toast('Select a date','err');return;}
+  // Auto-calculate total
+  const nsivim=+document.getElementById('v-ns-ivim').value||0;
+  const nsdress=+document.getElementById('v-ns-dress').value||0;
+  const vacc=+document.getElementById('v-vaccine').value||0;
+  const phlebo=+document.getElementById('v-phlebo').value||0;
+  const consult=+document.getElementById('v-consult').value||0;
+  const autoTotal=nsivim+nsdress+vacc+phlebo+consult;
+  const manualTotal=+document.getElementById('v-total').value||0;
+  const finalTotal=manualTotal||autoTotal;
+  document.getElementById('v-total').value=finalTotal;
   const summary={
     date,
-    total_visits:+document.getElementById('v-total').value||0,
-    ns_ivim:+document.getElementById('v-ns-ivim').value||0,
-    ns_dress:+document.getElementById('v-ns-dress').value||0,
-    vaccine:+document.getElementById('v-vaccine').value||0,
-    phlebotomy:+document.getElementById('v-phlebo').value||0,
-    consultation:+document.getElementById('v-consult').value||0,
+    total_visits:finalTotal,
+    ns_ivim:nsivim,
+    ns_dress:nsdress,
+    vaccine:vacc,
+    phlebotomy:phlebo,
+    consultation:consult,
     cancel_total:+document.getElementById('v-cancel-total').value||0,
     cancel_blood:+document.getElementById('v-cancel-blood').value||0,
     cancel_other:+document.getElementById('v-cancel-other').value||0,
@@ -1015,7 +1055,7 @@ function renderAudit(){
     <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:18px;font-weight:800;color:var(--gold)">${rate}%</div><div style="font-size:11px;color:var(--text3)">Team Rate</div></div>
     <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:18px;font-weight:800;color:var(--red)">${tnd}</div><div style="font-size:11px;color:var(--text3)">Not Documented</div></div>`;
   const ISS=['No Issue ✅','Late ⏰','Incomplete ⚠️','Wrong Info ❌','Other ✏️'];
-  document.getElementById('aud-table').innerHTML=`<table><thead><tr><th>Nurse</th><th>Total</th><th>Completed ✅</th><th>Documented</th><th>Partial</th><th>Not Doc ❌</th><th>Rate</th><th>Issue</th><th>Other</th><th>Notes</th></tr></thead><tbody>${list.map(n=>{
+  document.getElementById('aud-table').innerHTML=`<table><thead><tr><th>Nurse</th><th>Total Visits</th><th>Completed ✅</th><th>Documented 📝</th><th>Partial ⚠</th><th>Not Doc ❌</th><th>Rate</th><th>Issue</th><th>Other</th><th>Notes</th></tr></thead><tbody>${list.map(n=>{
     const d=audData[n.id]||{};const r=d.tv&&d.td?Math.round(d.td/d.tv*100)+'%':'—';
     return`<tr>
       <td><div style="font-weight:600;white-space:nowrap">${n.name}</div><div style="font-size:10px;color:var(--text3)">${TEAMS[n.home_team]||n.home_team}</div></td>
