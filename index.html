@@ -280,7 +280,7 @@ tr:hover td{background:rgba(255,255,255,0.02);}
     <div class="lcard-sub" id="nurse-date">Nurse Portal — Meena Health</div>
     <div id="nerr" class="err"></div>
     <label class="lbl">Badge Number</label>
-    <input type="number" class="finp" id="badge-inp" placeholder="e.g. 1510" onkeydown="if(event.key==='Enter')nurseLogin()">
+    <input type="text" inputmode="numeric" class="finp" id="badge-inp" placeholder="e.g. 1510" onkeydown="if(event.key==='Enter')nurseLogin()">
     <button class="btn-go" onclick="nurseLogin()">Continue →</button>
     <div class="lfooter">
       <button class="llink" onclick="showScr('scr-admin')">Admin Login</button>
@@ -296,7 +296,7 @@ tr:hover td{background:rgba(255,255,255,0.02);}
     <div class="lcard-sub">HomeCare Pro — Meena Health</div>
     <div id="aerr" class="err"></div>
     <label class="lbl">Badge Number</label>
-    <input type="number" class="finp" id="a-badge" placeholder="Badge number" onkeydown="if(event.key==='Enter')adminLogin()">
+    <input type="text" inputmode="numeric" class="finp" id="a-badge" placeholder="Badge number" onkeydown="if(event.key==='Enter')adminLogin()">
     <label class="lbl">Password</label>
     <input type="password" class="finp" id="a-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
     <button class="btn-go" onclick="adminLogin()">→ Login</button>
@@ -339,7 +339,6 @@ tr:hover td{background:rgba(255,255,255,0.02);}
       <div class="tntab" onclick="goPage('readiness')" id="tn-readiness">✅ Readiness</div>
       <div class="tntab" onclick="goPage('audit')" id="tn-audit">📋 Audit</div>
       <div class="tntab" onclick="goPage('performance')" id="tn-performance">🏆 Performance</div>
-      <div class="tntab" onclick="goPage('messages')" id="tn-messages">💬 Chat</div>
       <div class="tntab" onclick="goPage('passwords')" id="tn-passwords" style="display:none">🔑 Passwords</div>
     </div>
     <div class="tnright">
@@ -384,7 +383,7 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 
       <!-- READINESS -->
       <div class="pg" id="pg-readiness">
-        <div class="pghdr"><div class="pgtitle">Daily Readiness</div><div style="font-size:12px;color:var(--text2)" id="rd-date"></div></div>
+        <div class="pghdr"><div class="pgtitle">Daily Readiness <span style="font-size:12px;color:var(--text3);font-weight:400" id="rd-date"></span></div><button class="btnadd" onclick="exportReadinessExcel()">⬇️ Export Excel</button></div>
         <div class="tblw" id="rd-table"><div class="loading"><div class="spinner"></div></div></div>
       </div>
 
@@ -405,21 +404,6 @@ tr:hover td{background:rgba(255,255,255,0.02);}
       <div class="pg" id="pg-performance">
         <div class="pghdr"><div class="pgtitle">Performance Rankings</div></div>
         <div id="perf-wrap"><div class="loading"><div class="spinner"></div></div></div>
-      </div>
-
-      <!-- MESSAGES -->
-      <div class="pg" id="pg-messages">
-        <div class="chatwrap">
-          <div class="chatside" id="chat-rooms"></div>
-          <div class="chatmain">
-            <div class="chathdr"><div style="font-size:13px;font-weight:700" id="chat-rtitle">Select a room</div></div>
-            <div class="chatmsgs" id="chat-msgs"></div>
-            <div class="chatinpr">
-              <input type="text" class="chatinp" id="chat-inp" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMsg()">
-              <button class="chatsend" onclick="sendMsg()">Send</button>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- PASSWORDS -->
@@ -501,7 +485,7 @@ const TCL={admin:'tp',consultation:'to',nursing:'tb',phlebotomy:'tr',vaccine:'tt
 const SHIFTS={
   admin:[{id:'adm_m',l:'Morning  8 AM – 4 PM'},{id:'adm_a',l:'Afternoon  4 PM – 12 AM'},{id:'adm_n',l:'Night  12 AM – 8 AM'},{id:'off',l:'Off Today 🚫'}],
   consultation:[{id:'con_a',l:'Shift A  8:30 AM – 6 PM'},{id:'con_b',l:'Shift B  12:30 PM – 10 PM'},{id:'off',l:'Off Today 🚫'}],
-  nursing:[{id:'ns_a',l:'Shift A  7 AM – 3 PM'},{id:'ns_b',l:'Shift B  3 PM – 11 PM'},{id:'ns_c',l:'Shift C  11 PM – 7 AM'},{id:'off',l:'Off Today 🚫'}],
+  nursing:[{id:'ns_a',l:'Shift A  6 AM – 2 PM'},{id:'ns_b',l:'Shift B  2 PM – 10 PM'},{id:'ns_c',l:'Shift C  10 PM – 6 AM'},{id:'off',l:'Off Today 🚫'}],
   phlebotomy:[{id:'ph_a',l:'Shift A  6 AM – 1 PM'},{id:'ph_b',l:'Shift B  2 PM – 10 PM'},{id:'off',l:'Off Today 🚫'}],
   vaccine:[{id:'vax_a',l:'Shift A  10 AM – 10 PM'},{id:'off',l:'Off Today 🚫'}],
   dialysis:[{id:'dia_a',l:'Shift A  7 AM – 3 PM'},{id:'dia_b',l:'Shift B  3 PM – 11 PM'},{id:'off',l:'Off Today 🚫'}],
@@ -607,10 +591,8 @@ function goPage(name){
   else if(name==='readiness')renderReadiness();
   else if(name==='audit')renderAudit();
   else if(name==='performance')renderPerf();
-  else if(name==='messages'){renderRooms();if(!chatPoll)chatPoll=setInterval(loadMsgs,5000);}
   else if(name==='passwords')renderPasses();
   else if(name==='dashboard')renderRP('dashboard');
-  if(name!=='messages'&&chatPoll){clearInterval(chatPoll);chatPoll=null;}
 }
 
 // RIGHT PANEL
@@ -738,7 +720,7 @@ function viewCheck(nid){
   if(!isToday||!n.self_submitted){h+='<div class="empty">No submission today</div>';}
   else{
     h+=ac.map(c=>{const v=checks[c.k];return`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px"><span>${c.i}</span><span style="flex:1">${c.n}</span><span class="tag ${v==='pass'?'tg':v==='fail'?'tr':'tgr'}">${v==='pass'?'✓ OK':v==='fail'?'✗ Issue':'—'}</span></div>`;}).join('');
-    if(n.bag_photo)h+=`<img src="${n.bag_photo}" style="width:100%;border-radius:10px;margin-top:14px;max-height:200px;object-fit:cover">`;
+    if(n.bag_photo)h+=`<div style="position:relative;margin-top:14px"><img src="${n.bag_photo}" style="width:100%;border-radius:10px;max-height:200px;object-fit:cover"><button onclick="this.parentElement.style.display='none'" style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.6);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px">✕</button></div>`;
     if(n.charge_notes)h+=`<div style="margin-top:12px;padding:10px;background:var(--bg3);border-radius:8px;font-size:12px">📝 ${n.charge_notes}</div>`;
   }
   document.getElementById('check-body').innerHTML=h;openOvl('ovl-check');
@@ -769,7 +751,7 @@ function renderReadiness(){
   document.getElementById('rd-table').innerHTML=`<table><thead><tr><th>Nurse</th><th>Team</th><th>Shift</th><th>Status</th>${ac.map(c=>'<th>'+c.i+'</th>').join('')}<th>Photo</th></tr></thead><tbody>${nurses.map(n=>{
     const isT=n.daily_date===today;const ch=isT?n.self_checks||{}:{};
     const st=nSt(n,today);const shf=(SHIFTS[n.daily_team||n.home_team]||[]).find(s=>s.id===n.daily_shift);
-    return`<tr><td><div style="font-weight:600;white-space:nowrap">${n.name}</div><div style="font-size:10px;color:var(--text3)">${n.badge}</div></td><td><span class="tag ${TCL[n.home_team]||'tgr'}" style="font-size:10px">${TI[n.home_team]||''} ${TEAMS[n.home_team]||'-'}</span></td><td style="font-size:11px;color:var(--text2);white-space:nowrap">${shf?shf.l:'—'}</td><td><span class="stbadge ${st.c}">${st.l}</span></td>${ac.map(c=>{const v=ch[c.k];return'<td style="text-align:center">'+(v==='pass'?'<span style="color:var(--green)">✓</span>':v==='fail'?'<span style="color:var(--red)">✗</span>':'<span style="color:var(--text3)">—</span>')+'</td>';}).join('')}<td>${n.bag_photo&&isT?'<a href="'+n.bag_photo+'" target="_blank" style="color:var(--accent);font-size:12px">📷</a>':'—'}</td></tr>`;
+    return`<tr><td><div style="font-weight:600;white-space:nowrap">${n.name}</div><div style="font-size:10px;color:var(--text3)">${n.badge}</div></td><td><span class="tag ${TCL[n.daily_team||n.home_team]||'tgr'}" style="font-size:10px">${TI[n.daily_team||n.home_team]||''} ${TEAMS[n.daily_team||n.home_team]||'-'}</span></td><td style="font-size:11px;color:var(--text2);white-space:nowrap">${shf?shf.l:'—'}</td><td><span class="stbadge ${st.c}">${st.l}</span></td>${ac.map(c=>{const v=ch[c.k];return'<td style="text-align:center">'+(v==='pass'?'<span style="color:var(--green)">✓</span>':v==='fail'?'<span style="color:var(--red)">✗</span>':'<span style="color:var(--text3)">—</span>')+'</td>';}).join('')}<td>${n.bag_photo&&isT?'<a href="'+n.bag_photo+'" target="_blank" style="color:var(--accent);font-size:12px">📷</a>':'—'}</td></tr>`;
   }).join('')}</tbody></table>`;
 }
 
@@ -784,10 +766,10 @@ function renderAudit(){
   list.forEach(n=>{const d=audData[n.id]||{};tv+=d.tv||0;td+=d.td||0;tp+=d.tp||0;tnd+=d.tnd||0;});
   const rate=tv?Math.round(td/tv*100):0;
   document.getElementById('aud-sum').innerHTML=`<div class="a-sum-item" style="display:flex;flex-direction:column;gap:2px"><div class="asv" style="color:var(--accent)">${td}</div><div class="asl">Documented</div></div><div class="a-sum-item" style="display:flex;flex-direction:column;gap:2px"><div class="asv" style="color:var(--blue)">${tv}</div><div class="asl">Total Visits</div></div><div class="a-sum-item" style="display:flex;flex-direction:column;gap:2px"><div class="asv" style="color:var(--gold)">${rate}%</div><div class="asl">Team Rate</div></div><div class="a-sum-item" style="display:flex;flex-direction:column;gap:2px"><div class="asv" style="color:var(--red)">${tnd}</div><div class="asl">Not Documented</div></div>`;
-  const ISS=['No Issue ✅','Late ⏰','Incomplete ⚠️','Wrong Info ❌'];
+  const ISS=['No Issue ✅','Late ⏰','Incomplete ⚠️','Wrong Info ❌','Other ✏️'];
   document.getElementById('aud-table').innerHTML=`<table><thead><tr><th>Nurse</th><th>Total Visits</th><th>Documented ✅</th><th>Partial</th><th>Not Doc ❌</th><th>Rate</th><th>Issue</th><th>Notes</th></tr></thead><tbody>${list.map(n=>{
     const d=audData[n.id]||{};const r=d.tv&&d.td?Math.round(d.td/d.tv*100)+'%':'—';
-    return`<tr><td><div style="font-weight:600;white-space:nowrap">${n.name}</div><div style="font-size:10px;color:var(--text3)">${TEAMS[n.home_team]||n.home_team}</div></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px" value="${d.tv||''}" onchange="ua('${n.id}','tv',this.value)" placeholder="0"></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px;color:var(--green)" value="${d.td||''}" onchange="ua('${n.id}','td',this.value)" placeholder="0"></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px;color:var(--gold)" value="${d.tp||''}" onchange="ua('${n.id}','tp',this.value)" placeholder="0"></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px;color:var(--red)" value="${d.tnd||''}" onchange="ua('${n.id}','tnd',this.value)" placeholder="0"></td><td><span style="font-size:14px;font-weight:800;color:${parseInt(r)>=80?'var(--green)':parseInt(r)>=50?'var(--gold)':'var(--red)'}">${r}</span></td><td><select class="fi" style="width:130px;padding:5px 8px;font-size:11px" onchange="ua('${n.id}','issue',this.value)">${ISS.map(t=>`<option ${(d.issue||'No Issue ✅')===t?'selected':''}>${t}</option>`).join('')}</select></td><td><input type="text" class="fi" style="width:110px;padding:5px 8px;font-size:12px" value="${d.notes||''}" onchange="ua('${n.id}','notes',this.value)" placeholder="Notes..."></td></tr>`;
+    return`<tr><td><div style="font-weight:600;white-space:nowrap">${n.name}</div><div style="font-size:10px;color:var(--text3)">${TEAMS[n.home_team]||n.home_team}</div></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px" value="${d.tv||''}" onchange="ua('${n.id}','tv',this.value)" placeholder="0"></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px;color:var(--green)" value="${d.td||''}" onchange="ua('${n.id}','td',this.value)" placeholder="0"></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px;color:var(--gold)" value="${d.tp||''}" onchange="ua('${n.id}','tp',this.value)" placeholder="0"></td><td><input type="number" min="0" class="fi" style="width:68px;padding:5px 8px;font-size:12px;color:var(--red)" value="${d.tnd||''}" onchange="ua('${n.id}','tnd',this.value)" placeholder="0"></td><td><span style="font-size:14px;font-weight:800;color:${parseInt(r)>=80?'var(--green)':parseInt(r)>=50?'var(--gold)':'var(--red)'}">${r}</span></td><td><select class="fi" style="width:130px;padding:5px 8px;font-size:11px" onchange="ua('${n.id}','issue',this.value)">${ISS.map(t=>`<option ${(d.issue||'No Issue ✅')===t?'selected':''}>${t}</option>`).join('')}</select>${d.issue==='Other ✏️'?`<br><input type="text" class="fi" style="width:130px;padding:4px 8px;font-size:11px;margin-top:4px" value="${d.other||''}" onchange="ua('${n.id}','other',this.value)" placeholder="Describe...">`:''}</td><td><input type="text" class="fi" style="width:110px;padding:5px 8px;font-size:12px" value="${d.notes||''}" onchange="ua('${n.id}','notes',this.value)" placeholder="Notes..."></td></tr>`;
   }).join('')}</tbody></table>`;
 }
 function ua(id,f,v){if(!audData[id])audData[id]={};audData[id][f]=isNaN(Number(v))?v:Number(v);}
@@ -922,10 +904,38 @@ async function submitPortal(){
   if(ac.length>0&&ac.filter(c=>pChecks[c.k]).length<ac.length/2){toast('Complete at least half the checklist','err');return;}
   try{
     await sU('nurses','?id=eq.'+curNurse.id,{daily_date:new Date().toISOString().split('T')[0],daily_team:pTeam,daily_shift:pShift,self_checks:pChecks,self_submitted:true,self_submitted_at:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),bag_photo:pPhoto||curNurse.bag_photo||null});
-    toast('Submitted ✓','ok');
+    showThanks();
     const upd=await sG('nurses','?id=eq.'+curNurse.id+'&select=*');
     if(upd&&upd[0])curNurse=upd[0];renderPortal();
   }catch(e){toast('Error: '+e.message,'err');}
+}
+
+
+// THANK YOU SCREEN
+function showThanks(){
+  document.getElementById('portal-body').innerHTML=`
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;padding:40px">
+      <div style="font-size:72px;margin-bottom:20px">✅</div>
+      <div style="font-size:24px;font-weight:800;color:var(--accent);margin-bottom:10px">شكراً!</div>
+      <div style="font-size:16px;color:var(--text);margin-bottom:6px">تم رفع الطلب بنجاح</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:32px">Thank you — your readiness has been submitted</div>
+      <button class="btn-go" style="width:200px" onclick="showScr('scr-nurse')">Exit Portal</button>
+    </div>`;
+}
+
+// EXCEL EXPORT
+function exportReadinessExcel(){
+  const today=new Date().toISOString().split('T')[0];
+  const rows=[['Name','Badge','Home Team','Today Team','Shift','Status','Submitted At','Photo']];
+  nurses.forEach(n=>{
+    const isT=n.daily_date===today;const st=nSt(n,today);
+    const shf=(SHIFTS[n.daily_team||n.home_team]||[]).find(s=>s.id===n.daily_shift);
+    rows.push([n.name||'',n.badge||'',TEAMS[n.home_team]||n.home_team||'',TEAMS[n.daily_team||n.home_team]||'',shf?shf.l:'No shift',st.l,isT&&n.self_submitted_at?n.self_submitted_at:'',n.bag_photo&&isT?'Yes':'No']);
+  });
+  let csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Readiness_'+today+'.csv';a.click();
+  toast('Excel downloaded ✓','ok');
 }
 
 // THEME
