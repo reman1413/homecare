@@ -463,6 +463,16 @@ tr:hover td{background:rgba(0,229,176,0.02);}
       <div class="pg on" id="pg-dashboard">
         <div class="statsrow" id="dash-stats"><div class="loading"><div class="spinner"></div></div></div>
         <div class="g2" style="margin-bottom:16px">
+          <div class="sec" id="employee-month-sec" style="display:none">
+            <div class="sechdr"><div class="sect">🏆 Employee of the Month</div><div class="secs" id="eom-month"></div></div>
+            <div class="secb" id="employee-month-body"></div>
+          </div>
+          <div class="sec" id="top-stats-sec">
+            <div class="sechdr"><div class="sect">📊 Quick Insights</div><div class="secs">This month</div></div>
+            <div class="secb" id="quick-insights"></div>
+          </div>
+        </div>
+        <div class="g2" style="margin-bottom:16px">
           <div class="sec"><div class="sechdr"><div class="sect">📊 Readiness by Team</div><div class="secs" id="d-date"></div></div><div class="secb" id="d-teams"></div></div>
           <div class="sec"><div class="sechdr"><div class="sect">🕐 Latest Submissions</div><div class="secs">Today</div></div><div class="secb" id="d-latest"></div></div>
         </div>
@@ -673,7 +683,7 @@ let isDark=true,audData={},adPasses={};
 let sfTeam='',sfStatus='';
 let nurseVisitRows=[],visitsHistory=[];
 
-async function sbq(m,t,q='',b=null){
+async function sbq(m,t,q='',b=null,retries=3){
   const url=SB+'/rest/v1/'+t+q;
   const opts={
     method:m,
@@ -683,16 +693,24 @@ async function sbq(m,t,q='',b=null){
       'Content-Type':'application/json',
       'Prefer':'return=representation',
       'Accept':'application/json'
-    }
+    },
+    signal:(()=>{const ac=new AbortController();setTimeout(()=>ac.abort(),15000);return ac.signal;})()
   };
   if(b)opts.body=JSON.stringify(b);
-  const r=await fetch(url,opts);
-  if(r.status===204)return null;
-  const txt=await r.text();
-  if(!txt)return null;
-  const d=JSON.parse(txt);
-  if(!r.ok)throw new Error((d&&(d.message||d.error||d.hint))||'DB Error '+r.status);
-  return d;
+  for(let i=0;i<retries;i++){
+    try{
+      const r=await fetch(url,opts);
+      if(r.status===204)return null;
+      const txt=await r.text();
+      if(!txt)return null;
+      const d=JSON.parse(txt);
+      if(!r.ok)throw new Error((d&&(d.message||d.error||d.hint))||'DB Error '+r.status);
+      return d;
+    }catch(e){
+      if(i===retries-1)throw e;
+      await new Promise(r=>setTimeout(r,1000*(i+1)));
+    }
+  }
 }
 const sG=(t,q)=>sbq('GET',t,q);
 const sP=(t,b)=>sbq('POST',t,'',b);
@@ -924,6 +942,80 @@ async function renderDash(){
         </div>
       </div>`;
   }catch(e){document.getElementById('d-census').innerHTML='<div class="empty">—</div>';}
+  
+  // Quick Insights
+  try{
+    const today=new Date().toISOString().split('T')[0];
+    const month=today.slice(0,7);
+    // Top nurse this month from audit
+    const audLogs=await sG('audit_logs','?order=created_at.desc&limit=500&select=nurse_name,total_visits,documented,team')||[];
+    const thisMonthLogs=audLogs.filter(r=>r.created_at?(r.created_at.slice(0,7)===month):true);
+    
+    // Group by nurse
+    const byNurse={};
+    thisMonthLogs.forEach(r=>{
+      if(!r.nurse_name)return;
+      if(!byNurse[r.nurse_name])byNurse[r.nurse_name]={tv:0,td:0,team:r.team};
+      byNurse[r.nurse_name].tv+=r.total_visits||0;
+      byNurse[r.nurse_name].td+=r.documented||0;
+    });
+    
+    const nurseArr=Object.entries(byNurse).map(([n,d])=>({name:n,team:d.team,tv:d.tv,td:d.td,rate:d.tv?Math.round(d.td/d.tv*100):0})).sort((a,b)=>b.rate-a.rate);
+    
+    // Today checklist stats
+    const full100=nurses.filter(n=>{
+      const isT=n.daily_date===today&&n.self_submitted;
+      if(!isT)return false;
+      const ac=allC(n.home_team);
+      return ac.every(c=>(n.self_checks||{})[c.k]==='pass');
+    });
+    
+    const avgVisits=visitsHistory.length?Math.round(visitsHistory.reduce((s,v)=>s+(v.total_visits||0),0)/visitsHistory.length):0;
+    
+    // Employee of month
+    if(nurseArr.length>0){
+      const top=nurseArr[0];
+      document.getElementById('employee-month-sec').style.display='';
+      document.getElementById('eom-month').textContent=month;
+      document.getElementById('employee-month-body').innerHTML=\`
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="width:56px;height:56px;border-radius:14px;background:\${TBG[top.team]||'#334'};display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff">\${(top.name||'?')[0]}</div>
+          <div style="flex:1">
+            <div style="font-size:16px;font-weight:800">\${top.name}</div>
+            <div style="font-size:12px;color:var(--text3);\margin-top:2px">\${TI[top.team]||''} \${TEAMS[top.team]||top.team||''}</div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <span class="tag tg">\${top.rate}% Doc Rate</span>
+              <span class="tag tb">\${top.tv} Visits</span>
+            </div>
+          </div>
+          <div style="font-size:40px">🏆</div>
+        </div>
+        <div style="margin-top:14px">
+          <div class="pbar" style="height:8px"><div class="pf pf-t" style="width:\${top.rate}%"></div></div>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px;text-align:center">Documentation Rate</div>
+        </div>\`;
+    }
+    
+    document.getElementById('quick-insights').innerHTML=\`
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:rgba(0,229,176,0.07);border:1px solid rgba(0,229,176,0.15);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--accent)">\${avgVisits}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">Avg Daily Visits</div>
+        </div>
+        <div style="background:rgba(45,217,138,0.07);border:1px solid rgba(45,217,138,0.15);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--green)">\${full100.length}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">100% Today ✓</div>
+        </div>
+        <div style="background:rgba(77,159,255,0.07);border:1px solid rgba(77,159,255,0.15);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--blue)">\${nurseArr.length}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">Nurses Audited</div>
+        </div>
+        <div style="background:rgba(167,139,255,0.07);border:1px solid rgba(167,139,255,0.15);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--purple)">\${nurseArr[0]?nurseArr[0].rate:0}%</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">Top Doc Rate</div>
+        </div>
+      </div>\`;
+  }catch(e){console.log('insights error',e);}
 }
 
 // STAFF
