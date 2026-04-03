@@ -683,34 +683,22 @@ let isDark=true,audData={},adPasses={};
 let sfTeam='',sfStatus='';
 let nurseVisitRows=[],visitsHistory=[];
 
-async function sbq(m,t,q='',b=null,retries=3){
-  const url=SB+'/rest/v1/'+t+q;
-  const opts={
-    method:m,
+async function sbq(m,t,q,b){
+  q=q||'';
+  const r=await fetch(SB+'/rest/v1/'+t+q,{
+    method:m||'GET',
     headers:{
       'apikey':SK,
       'Authorization':'Bearer '+SK,
       'Content-Type':'application/json',
-      'Prefer':'return=representation',
-      'Accept':'application/json'
+      'Prefer':'return=representation'
     },
-    signal:(()=>{const ac=new AbortController();setTimeout(()=>ac.abort(),15000);return ac.signal;})()
-  };
-  if(b)opts.body=JSON.stringify(b);
-  for(let i=0;i<retries;i++){
-    try{
-      const r=await fetch(url,opts);
-      if(r.status===204)return null;
-      const txt=await r.text();
-      if(!txt)return null;
-      const d=JSON.parse(txt);
-      if(!r.ok)throw new Error((d&&(d.message||d.error||d.hint))||'DB Error '+r.status);
-      return d;
-    }catch(e){
-      if(i===retries-1)throw e;
-      await new Promise(r=>setTimeout(r,1000*(i+1)));
-    }
-  }
+    body:b?JSON.stringify(b):undefined
+  });
+  if(r.status===204)return null;
+  const d=await r.json();
+  if(!r.ok)throw new Error(d.message||d.error||'Error '+r.status);
+  return d;
 }
 const sG=(t,q)=>sbq('GET',t,q);
 const sP=(t,b)=>sbq('POST',t,'',b);
